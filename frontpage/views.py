@@ -7,10 +7,15 @@ from frontpage.models import Title, Slider
 
 
 def base_page(request):
-    context = {'placeholder': "PLACEHOLDER TEXT FROM VIEW TEMPLATE"}
+    context = {'title': "TITLE FROM VIEW TEMPLATE"}
     return render(request, 'frontpage/base.html', context)
 
 
 def home_page(request):
-    context = {'placeholder': "PLACEHOLDER TEXT FROM VIEW TEMPLATE"}
+    all_sliders = Slider.objects.all()
+    slider_1 = all_sliders[0]
+
+    context = {'placeholder': "PLACEHOLDER TEXT FROM VIEW TEMPLATE", 
+        'sliders': all_sliders, 'slider_1': slider_1,
+        }
     return render(request, 'frontpage/home.html', context)

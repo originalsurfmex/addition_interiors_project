@@ -15,7 +15,7 @@ class Title(models.Model):
 
 class Slider(models.Model):
     slider_title = models.CharField(max_length=20)
-    slider_text = models.CharField(max_length=200)
+    slider_text = models.TextField(max_length=200)
     slider_order = models.PositiveSmallIntegerField(default=1, blank=True, null=True)
 
     def __str__(self):

@@ -94,4 +94,6 @@ STATICFILES_FINDERS = (
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
     "django.core.context_processors.request",
+    #MY CUSTOM TEMPLATE PROCESSORS
+    "frontpage.context_processors.base_page",
 )

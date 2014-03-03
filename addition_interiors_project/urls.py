@@ -6,7 +6,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'addition_interiors_project.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    # url(r'^grappelli/', include('grappelli.urls')), #grappelli urls
+    url(r'^grappelli/', include('grappelli.urls')), #grappelli urls
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^$', include('frontpage.urls', namespace='frontpage'))

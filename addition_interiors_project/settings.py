@@ -7,6 +7,12 @@ https://docs.djangoproject.com/en/dev/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
+#for DJANGO-SUIT:
+#from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
+
+#TEMPLATE_CONTEXT_PROCESSORS = TCP + {
+#    'django.core.context_processors.request',
+#}
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -30,7 +36,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    'grappelli',
+    # 'grappelli',
+    'suit',
     'django.contrib.contenttypes',
     'django.contrib.auth',
     'django.contrib.admin',
@@ -86,7 +93,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# GRAPPELLI SPECIFIC ##
+# GRAPPELLI SPECIFIC RECOMMENDED ##
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'django.contrib.staticfiles.finders.FileSystemFinder',

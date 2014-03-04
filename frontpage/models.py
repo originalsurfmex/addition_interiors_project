@@ -1,9 +1,12 @@
 from django.db import models
+from django import forms
 
 from django.core.exceptions import ValidationError
 
 
+# ----------
 # VALIDATIONS
+# ----------
 
 def validate_only_one_instance(obj):
     model = obj.__class__
@@ -20,7 +23,9 @@ def validate_only_three_instances(obj):
             model.objects.filter(id=obj.id).exists() == False):
         raise ValidationError("only 3 %ss can be created" % model.__name__)
 
+# ----------
 # MODELS
+# ----------
 
 
 class Title(models.Model):
@@ -45,3 +50,15 @@ class Slider(models.Model):
 
     def __str__(self):
         return self.slider_title
+
+
+# ----------
+# FORMS
+# ----------
+
+"""
+class SliderForm(forms.ModelForm):
+
+    class Meta:
+        model = Slider
+"""

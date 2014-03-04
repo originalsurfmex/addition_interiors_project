@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib import admin
 
 from frontpage.models import Title, Slider
@@ -28,6 +29,12 @@ class SliderAdmin(admin.ModelAdmin):
         (None,  {'fields': ['slider_order']}),
     ]
     list_display = ('slider_title', 'slider_text', 'slider_order', )
+
+
+class SliderForm(forms.ModelForm):
+
+    class Meta:
+        model = Slider
 
 admin.site.register(Title, TitleAdmin)
 admin.site.register(Slider, SliderAdmin)

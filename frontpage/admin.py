@@ -6,18 +6,28 @@ from frontpage.models import Title, Slider
 
 
 class TitleAdmin(admin.ModelAdmin):
+
+    # remove "add" button
+    def has_add_permission(self, request):
+        return False
+
     fieldsets = [
         ('20 Character Limit', {'fields': ['title']}),
     ]
 
 
 class SliderAdmin(admin.ModelAdmin):
-    fieldsets =[
-        (None,  {'fields':['slider_title']}),
-        (None,  {'fields':['slider_text']}),
-        (None,  {'fields':['slider_order']}),
+
+    # remove "add" button
+    def has_add_permission(self, request):
+        return False
+
+    fieldsets = [
+        (None,  {'fields': ['slider_title']}),
+        (None,  {'fields': ['slider_text']}),
+        (None,  {'fields': ['slider_order']}),
     ]
-    list_display = ('slider_order', 'slider_title', 'slider_text')
+    list_display = ('slider_title', 'slider_text', 'slider_order', )
 
 admin.site.register(Title, TitleAdmin)
 admin.site.register(Slider, SliderAdmin)

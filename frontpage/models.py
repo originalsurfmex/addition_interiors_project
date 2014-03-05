@@ -46,6 +46,7 @@ class Slider(models.Model):
     slider_order = models.PositiveSmallIntegerField(
         default=1, blank=True, null=True, choices=[(1, 'first'),
                                                    (2, 'middle'), (3, 'last')])
+    slider_image = models.ImageField(upload_to='/static/frontpage/image', blank=True, null=True,)
     link = "Edit"
 
     def clean(self):

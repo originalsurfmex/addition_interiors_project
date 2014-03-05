@@ -31,6 +31,8 @@ def validate_only_three_instances(obj):
 class Title(models.Model):
     title = models.CharField(max_length=20, default='Addition Interiors')
 
+    link = "Edit"
+
     def clean(self):
         validate_only_one_instance(self)
 
@@ -44,6 +46,7 @@ class Slider(models.Model):
     slider_order = models.PositiveSmallIntegerField(
         default=1, blank=True, null=True, choices=[(1, 'first'),
                                                    (2, 'middle'), (3, 'last')])
+    link = "Edit"
 
     def clean(self):
         validate_only_three_instances(self)

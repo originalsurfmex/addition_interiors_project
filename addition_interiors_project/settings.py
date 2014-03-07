@@ -7,12 +7,6 @@ https://docs.djangoproject.com/en/dev/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
-#for DJANGO-SUIT:
-#from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
-
-#TEMPLATE_CONTEXT_PROCESSORS = TCP + {
-#    'django.core.context_processors.request',
-#}
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -92,8 +86,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 
-# GRAPPELLI SPECIFIC RECOMMENDED ##
+# GRAPPELLI and Django-Suit SPECIFIC RECOMMENDED ##
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'django.contrib.staticfiles.finders.FileSystemFinder',

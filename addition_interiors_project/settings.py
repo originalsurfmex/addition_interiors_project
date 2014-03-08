@@ -102,3 +102,5 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     #SERVE UP MEDIA FILES
     "django.core.context_processors.media",
 )
+
+DEBUG_TOOLBAR_PATCH_SETTINGS = False

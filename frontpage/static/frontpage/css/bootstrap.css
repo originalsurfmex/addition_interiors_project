@@ -9383,8 +9383,7 @@ button.close {
 
 .carousel-inner>.item>img, .carousel-inner>.item>a>img {
 
-    line-height:1
-
+    line-height:1;
 }
 
 .carousel-inner>.active, .carousel-inner>.next, .carousel-inner>.prev {

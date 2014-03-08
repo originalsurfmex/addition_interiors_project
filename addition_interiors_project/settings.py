@@ -99,4 +99,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
     #MY CUSTOM TEMPLATE PROCESSORS
     "frontpage.context_processors.base_page",
+    #SERVE UP MEDIA FILES
+    "django.core.context_processors.media",
 )

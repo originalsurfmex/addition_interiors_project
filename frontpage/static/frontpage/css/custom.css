@@ -53,17 +53,17 @@ body {
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
 
-/* Carousel base class */
+/* Carousel base class 
 .carousel {
   height: 500px;
   margin-bottom: 60px;
 }
-/* Since positioning the image, we need to help out the caption */
+/* Since positioning the image, we need to help out the caption 
 .carousel-caption {
   z-index: 10;
 }
 
-/* Declare heights because of positioning of img element */
+/* Declare heights because of positioning of img element 
 .carousel .item {
   height: 500px;
   background-color: #777;
@@ -75,6 +75,7 @@ body {
   min-width: 100%;
   height: 500px;
 }
+*/
 
 
 
@@ -159,7 +160,7 @@ body {
   .featurette-heading {
     font-size: 50px;
   }
-}
+
 
 @media (min-width: 992px) {
   .featurette-heading {
@@ -170,3 +171,4 @@ body {
 /* 
 -------------------STYLING BABY!--------------------
 */
+

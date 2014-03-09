@@ -53,21 +53,22 @@ body {
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
 
-/* Carousel base class 
+/* Carousel base class */
 .carousel {
-  height: 500px;
+  max-height: 500px;
   margin-bottom: 60px;
 }
-/* Since positioning the image, we need to help out the caption 
+/* Since positioning the image, we need to help out the caption */
 .carousel-caption {
   z-index: 10;
 }
 
-/* Declare heights because of positioning of img element 
+/* Declare heights because of positioning of img element */
 .carousel .item {
   height: 500px;
   background-color: #777;
 }
+/*
 .carousel-inner > .item > img {
   position: absolute;
   top: 0;
@@ -76,6 +77,8 @@ body {
   height: 500px;
 }
 */
+
+
 
 
 

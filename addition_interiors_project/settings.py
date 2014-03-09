@@ -30,8 +30,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    # 'grappelli',
-    'suit',
+    'grappelli',
+    # 'suit',
+    # 'djangocms_admin_style',
+    # 'admin_shortcuts',
     'django.contrib.contenttypes',
     'django.contrib.auth',
     'django.contrib.admin',
@@ -45,6 +47,8 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    #FOR DJANGO-DEBUG-TOOLBAR
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -103,4 +107,15 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.media",
 )
 
-DEBUG_TOOLBAR_PATCH_SETTINGS = False
+"""
+#FOR DJANGO DEBUG TOOLBAR
+def show_toolbar(request):
+    return True
+SHOW_TOOLBAR_CALLBACK = show_toolbar
+
+INTERNAL_IPS = ('127.0.0.1', '192.168.0.1',)
+
+DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False,}
+"""
+
+#DEBUG_TOOLBAR_PATCH_SETTINGS = True

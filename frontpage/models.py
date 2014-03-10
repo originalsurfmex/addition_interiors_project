@@ -4,9 +4,9 @@ from django import forms
 from django.core.exceptions import ValidationError
 
 
-# ----------
+# ------------------------------------------------------------
 # VALIDATIONS
-# ----------
+# ------------------------------------------------------------
 
 def validate_only_one_instance(obj):
     model = obj.__class__
@@ -23,9 +23,9 @@ def validate_only_three_instances(obj):
             model.objects.filter(id=obj.id).exists() == False):
         raise ValidationError("only 3 %ss can be created" % model.__name__)
 
-# ----------
+# ------------------------------------------------------------
 # MODELS
-# ----------
+# ------------------------------------------------------------
 
 
 class Title(models.Model):
@@ -56,9 +56,40 @@ class Slider(models.Model):
         return self.slider_title
 
 
-# ----------
+class Marketing(models.Model):
+    marketing_title = models.CharField(max_length=20)
+    marketing_text = models.TextField(max_length=300)
+    marketing_order = models.PositiveSmallIntegerField(
+        default=1, blank=True, null=True, choices=[(1, 'first'),
+                                                   (2, 'middle'), (3, 'last')])        
+    marketing_image = models.ImageField(upload_to='media/frontpage/marketing', blank=True, null=True,)
+    link = "Edit"
+    def clean(self):
+        validate_only_three_instances(self)
+
+    def __str__(self):
+        return self.marketing_title
+
+
+class Feature(models.Model):
+    feature_title = models.CharField(max_length=20)
+    feature_subtitle = models.CharField(max_length=20)
+    feature_text = models.TextField(max_length=300)
+    feature_order = models.PositiveSmallIntegerField(
+        default=1, blank=True, null=True, choices=[(1, 'first'),
+                                                   (2, 'middle'), (3, 'last')])
+    feature_image = models.ImageField(upload_to='media/frontpage/feature', blank=True, null=True,)
+    link = "Edit"    
+    def clean(self):
+        validate_only_three_instances(self)
+
+    def __str__(self):
+        return self.feature_title
+
+
+# ------------------------------------------------------------
 # FORMS
-# ----------
+# ------------------------------------------------------------
 
 """
 class SliderForm(forms.ModelForm):

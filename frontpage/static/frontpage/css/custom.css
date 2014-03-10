@@ -55,6 +55,7 @@ body {
 
 /* Carousel base class */
 .carousel {
+  min-width: 100%;
   max-height: 500px;
   margin-bottom: 60px;
 }
@@ -65,9 +66,15 @@ body {
 
 /* Declare heights because of positioning of img element */
 .carousel .item {
-  height: 500px;
+  min-width: 100%;
+  max-height: 500px;
   background-color: #777;
 }
+
+.carousel-inner > .item > img {
+  min-width: 100%;
+}
+
 /*
 .carousel-inner > .item > img {
   position: absolute;
@@ -104,6 +111,13 @@ body {
   margin-left: 10px;
 }
 
+.marketing-img {
+  display: inline-block;
+  height: 150px;
+  width: 150px;
+  overflow:hidden;
+}
+
 
 /* Featurettes
 ------------------------- */
@@ -117,6 +131,12 @@ body {
   font-weight: 300;
   line-height: 1;
   letter-spacing: -1px;
+}
+
+.featurette-image {
+  display: inline-block;
+  max-height: 500px;
+  width: auto;
 }
 
 
@@ -145,13 +165,6 @@ body {
     padding-right: 0;
     padding-left:  0;
   }
-
-
-  /* The navbar becomes detached from the top, so we round the corners 
-  .navbar-wrapper .navbar {
-    border-radius: 4px;
-  }
-  */
 
   /* Bump up size of carousel content */
   .carousel-caption p {

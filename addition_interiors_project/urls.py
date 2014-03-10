@@ -21,8 +21,8 @@ urlpatterns = patterns('',
     url(r'^$', include('frontpage.urls', namespace='frontpage'))
 ) 
 
+#SERVE STATIC FILES::NOT RECOMMENDED!
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
 urlpatterns += staticfiles_urlpatterns()
 
 
@@ -30,5 +30,5 @@ urlpatterns += staticfiles_urlpatterns()
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns += patterns('',
-        url(r'^__debug__/', include(debug_toolbar.urls)),
+        url(r'^__debug__/', include(debug_toolbar.urls)),   
     )

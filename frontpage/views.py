@@ -1,9 +1,12 @@
-from django.shortcuts import render #get_object_or_404
+from django.core.mail import send_mail, BadHeaderError
+from django.shortcuts import render  # get_object_or_404
 from django.http import HttpResponseRedirect
 # from django.views import generic
 
+from django.views.generic import TemplateView
+
 from frontpage.models import Slider, Marketing, Feature
-from frontpage.forms import ContactForm
+from frontpage.forms import EmailForm
 
 # Create your views here.
 
@@ -27,16 +30,26 @@ def home_page(request):
     return render(request, 'frontpage/home.html', context)
 
 
-def contact(request):
-    if request.method == 'POST':  # If the form has been submitted...
-        form = ContactForm(request.POST)  # A form bound to the POST data
-        if form.is_valid():  # All validation rules pass
-            # Process the data in form.cleaned_data
-            # ...
-            return HttpResponseRedirect('/thanks/')  # Redirect after POST
+def sendmail(request):
+    if request.method == 'POST':
+        form = EmailForm(request.POST)
+        if form.is_valid():
+            firstname = form.cleaned_data['firstname']
+            lastname = form.cleaned_data['lastname']
+            email = form.cleaned_data['email'] #send this for contacting back,kl
+            subject = form.cleaned_data['subject']
+            botcheck = form.cleaned_data['botcheck'].lower()
+            message = form.cleaned_data['message']
+            if botcheck == 'yes':
+                try:
+                    fullemail = firstname + " " + \
+                        lastname + " " + "<" + email + ">"
+                    send_mail(
+                        subject, message, fullemail, ['SENDTOUSER@DOMAIN.COM'])
+                    return HttpResponseRedirect('/email/thankyou/')
+                except:
+                    return HttpResponseRedirect('/email/')
+        else:
+            return HttpResponseRedirect('/email/')
     else:
-        form = ContactForm()  # An unbound form
-
-    return render(request, 'contact.html', {
-        'form': form,
-    })
+        return HttpResponseRedirect('/email/')

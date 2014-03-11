@@ -42,13 +42,13 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'debug_toolbar',
     'frontpage',
-    #adding south to try out with django 1.6
+    # adding south to try out with django 1.6
     'south',
     'inplaceeditform',
 )
 
 MIDDLEWARE_CLASSES = (
-    #FOR DJANGO-DEBUG-TOOLBAR
+    # FOR DJANGO-DEBUG-TOOLBAR
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -93,6 +93,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
+STATIC_ROOT = '/var/www/static'
+MEDIA_ROOT = '/var/www/static'
+
 # GRAPPELLI and Django-Suit SPECIFIC RECOMMENDED ##
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -102,13 +105,13 @@ STATICFILES_FINDERS = (
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
     "django.core.context_processors.request",
-    #MY CUSTOM TEMPLATE PROCESSORS
+    # MY CUSTOM TEMPLATE PROCESSORS
     "frontpage.context_processors.base_page",
-    #SERVE UP MEDIA FILES
+    # SERVE UP MEDIA FILES
     "django.core.context_processors.media",
 )
 
-"""
+
 #FOR DJANGO DEBUG TOOLBAR
 def show_toolbar(request):
     return True
@@ -117,21 +120,38 @@ SHOW_TOOLBAR_CALLBACK = show_toolbar
 INTERNAL_IPS = ('127.0.0.1', '192.168.0.1',)
 
 DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False,}
-"""
+
 
 #DEBUG_TOOLBAR_PATCH_SETTINGS = True
 
+#-------------------------------------------------------------
+# FRONT END EDITING
+#-------------------------------------------------------------
 INPLACEEDIT_EDIT_EMPTY_VALUE = 'Double click to edit'
 INPLACEEDIT_AUTO_SAVE = True
 INPLACEEDIT_EVENT = "dblclick"
 INPLACEEDIT_DISABLE_CLICK = True  # For inplace edit text into a link tag
-#INPLACEEDIT_EDIT_MESSAGE_TRANSLATION = 'Write a translation' # transmeta option
+# INPLACEEDIT_EDIT_MESSAGE_TRANSLATION = 'Write a translation' # transmeta
+# option
 INPLACEEDIT_SUCCESS_TEXT = 'Successfully saved'
 INPLACEEDIT_UNSAVED_TEXT = 'You have unsaved changes'
 INPLACE_ENABLE_CLASS = 'enable'
-#DEFAULT_INPLACE_EDIT_OPTIONS = {} # dictionnary of the optionals parameters that the templatetag can receive to change its behavior (see the Advanced usage section)
-#DEFAULT_INPLACE_EDIT_OPTIONS_ONE_BY_ONE = True # modify the behavior of the DEFAULT_INPLACE_EDIT_OPTIONS usage, if True then it use the default values not specified in your template, if False it uses these options only when the dictionnary is empty (when you do put any options in your template)
-#ADAPTOR_INPLACEEDIT_EDIT = 'app_name.perms.MyAdaptorEditInline' # Explain in Permission Adaptor API
-#ADAPTOR_INPLACEEDIT = {'myadaptor': 'app_name.fields.MyAdaptor'} # Explain in Adaptor API
-INPLACE_GET_FIELD_URL = None # to change the url where django-inplaceedit use to get a field
-INPLACE_SAVE_URL = None # to change the url where django-inplaceedit use to save a field
+# DEFAULT_INPLACE_EDIT_OPTIONS = {} # dictionnary of the optionals parameters that the templatetag can receive to change its behavior (see the Advanced usage section)
+# DEFAULT_INPLACE_EDIT_OPTIONS_ONE_BY_ONE = True # modify the behavior of the DEFAULT_INPLACE_EDIT_OPTIONS usage, if True then it use the default values not specified in your template, if False it uses these options only when the dictionnary is empty (when you do put any options in your template)
+# ADAPTOR_INPLACEEDIT_EDIT = 'app_name.perms.MyAdaptorEditInline' # Explain in Permission Adaptor API
+# ADAPTOR_INPLACEEDIT = {'myadaptor': 'app_name.fields.MyAdaptor'} #
+# Explain in Adaptor API
+# to change the url where django-inplaceedit use to get a field
+INPLACE_GET_FIELD_URL = None
+# to change the url where django-inplaceedit use to save a field
+INPLACE_SAVE_URL = None
+
+
+#-------------------------------------------------------------
+# send_mail
+#-------------------------------------------------------------
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "xxxxxx@gmail.com"
+EMAIL_HOST_PASSWORD = 'xxxxxx'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

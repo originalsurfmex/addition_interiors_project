@@ -1,5 +1,5 @@
 {% extends 'frontpage/base.html' %}
-
+{% load inplace_edit %}
 
 {% block content %} 
 
@@ -22,14 +22,11 @@
               <div class="container">
                 <div class="carousel-caption">
 
-                  <!-- <h1>{{ sliders.0.slider_title }}</h1> -->
-
-                  <h1> {{ sliders.0.slider_title }} </h1>
-                  
-                  <p>{{ sliders.0.slider_text }}</p>
+                  <h1> {% inplace_edit "sliders.0.slider_title" %} </h1>
+                  <p>{% inplace_edit "sliders.0.slider_text" %}</p>
                   
 
-                  <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+                  <!-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p> -->
                 </div>
               </div>
             </div>
@@ -39,11 +36,11 @@
               <div class="container">
                 <div class="carousel-caption">
 
-                  <h1>{{ sliders.1.slider_title }}</h1>
-                  <p>{{ sliders.1.slider_text }}</p>
+                  <h1>{% inplace_edit "sliders.1.slider_title" %}</h1>
+                  <p>{% inplace_edit "sliders.1.slider_text" %}</p>
 
 
-                  <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                  <!-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p> -->
                 </div>
               </div>
             </div>
@@ -53,10 +50,10 @@
               <div class="container">
                 <div class="carousel-caption">
 
-                  <h1>{{ sliders.2.slider_title }}</h1>
-                  <p>{{ sliders.2.slider_text }}</p>
+                  <h1>{% inplace_edit "sliders.2.slider_title" %}</h1>
+                  <p>{% inplace_edit "sliders.2.slider_text" %}</p>
 
-                  <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+                  <!-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p> -->
                 </div>
               </div>
             </div>
@@ -84,21 +81,32 @@
             <div class="col-lg-4">
             <!--INTENDED IMAGE SIZE 150x150 -->
               <img class="marketing-img img-circle img-responsive" src="{{ MEDIA_URL}}{{ marketing.0.marketing_image }}" alt="{{ marketing.0.marketing_title }}" />
-              <h2>{{ marketing.0.marketing_title }}</h2>
-              <p>{{ marketing.0.marketing_text }}</p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+              <h2>{% inplace_edit "marketing.0.marketing_title" %}</h2>
+              <p>{% inplace_edit "marketing.0.marketing_text" %}</p>
+              <!-- <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
+              
+              <form action="/contact/" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Submit" />
+              </form>
+
             </div><!-- /.col-lg-4 -->
+            
+
             <div class="col-lg-4">
               <img class="marketing-img img-circle img-responsive" src="{{ MEDIA_URL}}{{ marketing.1.marketing_image }}" alt="{{ marketing.1.marketing_title }}" />
-              <h2>{{ marketing.1.marketing_title }}</h2>
-              <p>{{ marketing.1.marketing_text }}</p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+              <h2>{% inplace_edit "marketing.1.marketing_title" %}</h2>
+              <p>{% inplace_edit "marketing.1.marketing_text" %}</p>
+              <!-- <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
             </div><!-- /.col-lg-4 -->
+            
+
             <div class="col-lg-4">
               <img class="marketing-img img-circle img-responsive" src="{{ MEDIA_URL}}{{ marketing.2.marketing_image }}" alt="{{ marketing.2.marketing_title }}" />
-              <h2>{{ marketing.2.marketing_title }}</h2>
-              <p>{{ marketing.2.marketing_text }}</p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+              <h2>{% inplace_edit "marketing.2.marketing_title" %}</h2>
+              <p>{% inplace_edit "marketing.2.marketing_text" %}</p>
+              <!-- <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
             </div><!-- /.col-lg-4 -->
           </div><!-- /.row -->
 
@@ -109,8 +117,8 @@
 
           <div class="row featurette">
             <div class="col-md-7">
-              <h2 class="featurette-heading"> {{ feature.0.feature_title }} <span class="text-muted"> {{ feature.0.feature_subtitle }} </span></h2>
-              <p class="lead"> {{ feature.0.feature_text }} </p>
+              <h2 class="featurette-heading"> {% inplace_edit "feature.0.feature_title" %} <span class="text-muted"> {% inplace_edit "feature.0.feature_subtitle" %} </span></h2>
+              <p class="lead"> {% inplace_edit "feature.0.feature_text" %} </p>
             </div>
             <div class="col-md-5">
             <!--INTENDED IMAGE SIZE 500x500 -->
@@ -121,13 +129,13 @@
           <hr class="featurette-divider">
 
           <div class="row featurette">
-            <div class="col-md-7">
-              <h2 class="featurette-heading"> {{ feature.1.feature_title }} <span class="text-muted"> {{ feature.1.feature_subtitle }} </span></h2>
-              <p class="lead"> {{ feature.1.feature_text }} </p>
-            </div>
             <div class="col-md-5">
             <!--INTENDED IMAGE SIZE 150x150 -->
               <img class="featurette-image img-responsive" src="{{ MEDIA_URL}}{{ feature.1.feature_image }}" alt="{{ feature.1.feature_title }}" />
+            </div>
+            <div class="col-md-7">
+              <h2 class="featurette-heading"> {% inplace_edit "feature.1.feature_title" %} <span class="text-muted"> {% inplace_edit "feature.1.feature_subtitle" %} </span></h2>
+              <p class="lead"> {% inplace_edit "feature.1.feature_text" %} </p>
             </div>
           </div>
 
@@ -135,8 +143,8 @@
 
           <div class="row featurette">
             <div class="col-md-7">
-              <h2 class="featurette-heading"> {{ feature.2.feature_title }} <span class="text-muted"> {{ feature.2.feature_subtitle }} </span></h2>
-              <p class="lead"> {{ feature.2.feature_text }} </p>
+              <h2 class="featurette-heading"> {% inplace_edit "feature.2.feature_title" %} <span class="text-muted"> {% inplace_edit "feature.2.feature_subtitle" %} </span></h2>
+              <p class="lead"> {% inplace_edit "feature.2.feature_text" %} </p>
             </div>
             <div class="col-md-5">
             <!--INTENDED IMAGE SIZE 150x150 -->

@@ -17,8 +17,10 @@ urlpatterns = patterns('',
 
     url(r'^grappelli/', include('grappelli.urls')), #grappelli urls
     url(r'^admin/', include(admin.site.urls), name='admin'),
+    url(r'^inplaceeditform/', include('inplaceeditform.urls')),
+    url(r'^$', include('frontpage.urls', namespace='frontpage')),
 
-    url(r'^$', include('frontpage.urls', namespace='frontpage'))
+    #url(r'^contact/', include('contact_form.urls')),
 ) 
 
 #SERVE STATIC FILES::NOT RECOMMENDED!

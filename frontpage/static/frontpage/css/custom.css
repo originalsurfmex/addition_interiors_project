@@ -75,6 +75,12 @@ body {
   min-width: 100%;
 }
 
+.carousel-caption {
+    color: #FFFFFF;
+    text-align: center;
+    text-shadow: 3px 3px 2px #000000;
+}
+
 /*
 .carousel-inner > .item > img {
   position: absolute;

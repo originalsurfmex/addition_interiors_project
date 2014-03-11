@@ -1,5 +1,6 @@
 from django.db import models
 from django import forms
+from django.core.mail import send_mail
 
 from django.core.exceptions import ValidationError
 
@@ -46,7 +47,8 @@ class Slider(models.Model):
     slider_order = models.PositiveSmallIntegerField(
         default=1, blank=True, null=True, choices=[(1, 'first'),
                                                    (2, 'middle'), (3, 'last')])
-    slider_image = models.ImageField(upload_to='media/frontpage/slider', blank=True, null=True,)
+    slider_image = models.ImageField(
+        upload_to='media/frontpage/slider', blank=True, null=True,)
     link = "Edit"
 
     def clean(self):
@@ -61,9 +63,11 @@ class Marketing(models.Model):
     marketing_text = models.TextField(max_length=300)
     marketing_order = models.PositiveSmallIntegerField(
         default=1, blank=True, null=True, choices=[(1, 'first'),
-                                                   (2, 'middle'), (3, 'last')])        
-    marketing_image = models.ImageField(upload_to='media/frontpage/marketing', blank=True, null=True,)
+                                                   (2, 'middle'), (3, 'last')])
+    marketing_image = models.ImageField(
+        upload_to='media/frontpage/marketing', blank=True, null=True,)
     link = "Edit"
+
     def clean(self):
         validate_only_three_instances(self)
 
@@ -78,8 +82,10 @@ class Feature(models.Model):
     feature_order = models.PositiveSmallIntegerField(
         default=1, blank=True, null=True, choices=[(1, 'first'),
                                                    (2, 'middle'), (3, 'last')])
-    feature_image = models.ImageField(upload_to='media/frontpage/feature', blank=True, null=True,)
-    link = "Edit"    
+    feature_image = models.ImageField(
+        upload_to='media/frontpage/feature', blank=True, null=True,)
+    link = "Edit"
+
     def clean(self):
         validate_only_three_instances(self)
 
@@ -87,13 +93,16 @@ class Feature(models.Model):
         return self.feature_title
 
 
-# ------------------------------------------------------------
-# FORMS
-# ------------------------------------------------------------
+class Contact(models.Model):
 
-"""
-class SliderForm(forms.ModelForm):
+    first_name = models.CharField(max_length=255,)
+    last_name = models.CharField(max_length=255,)
 
-    class Meta:
-        model = Slider
-"""
+    email = models.EmailField()
+
+    def __str__(self):
+
+        return ' '.join([
+            self.first_name,
+            self.last_name,
+        ])

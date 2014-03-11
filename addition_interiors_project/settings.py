@@ -94,7 +94,7 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 STATIC_ROOT = '/var/www/static'
-MEDIA_ROOT = '/var/www/static'
+MEDIA_ROOT = '/var/www/media'
 
 # GRAPPELLI and Django-Suit SPECIFIC RECOMMENDED ##
 STATICFILES_FINDERS = (

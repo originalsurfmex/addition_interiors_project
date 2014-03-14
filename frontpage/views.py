@@ -32,11 +32,31 @@ def contact(request):
             send_mail(
                 request.POST['subject'],
                 request.POST['message'],
-                request.POST.get('email', 'noreply@simplesite.com'),
-                ['administrator@simplesite.com'], #email address where message is sent.
+                request.POST.get('email', 'noreply@additioninteriors.com'),
+                ['email@additioninteriors.com'], #email address where message is sent.
             )
             return HttpResponseRedirect('frontpage/thanks/')
     return render(request, 'frontpage/contact.html',
+        {'errors': errors})
+
+def sms(request):
+    errors = []
+    if request.method == 'POST':
+        if not request.POST.get('subject', ''):
+            errors.append('Enter a subject.')
+        if not request.POST.get('message', ''):
+            errors.append('Enter a message.')
+        if request.POST.get('email') and '@' not in request.POST['email']:
+            errors.append('Enter a valid e-mail address.')
+        if not errors:
+            send_mail(
+                request.POST['subject'],
+                request.POST['message'],
+                request.POST.get('email', 'noreply@additioninteriors.com'),
+                ['sms@additioninteriors.com'], #email address where message is sent.
+            )
+            return HttpResponseRedirect('frontpage/thanks/')
+    return render(request, 'frontpage/sms.html',
         {'errors': errors})
 
 

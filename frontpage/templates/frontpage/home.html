@@ -85,9 +85,8 @@
               <p>{% inplace_edit "marketing.0.marketing_text" %}</p>
               <!-- <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
               
-
-              {% block contact %}
-              {% include 'frontpage/contact.html' %}
+              {% block sms %}
+              {% include 'frontpage/sms.html' %}
               {% endblock %}
 
             </div><!-- /.col-lg-4 -->
@@ -98,6 +97,11 @@
               <h2>{% inplace_edit "marketing.1.marketing_title" %}</h2>
               <p>{% inplace_edit "marketing.1.marketing_text" %}</p>
               <!-- <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
+              
+              {% block contact %}
+              {% include 'frontpage/contact.html' %}
+              {% endblock %}
+
             </div><!-- /.col-lg-4 -->
             
 

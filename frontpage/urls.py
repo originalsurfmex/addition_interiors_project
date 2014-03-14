@@ -7,7 +7,8 @@ urlpatterns = patterns('',
                        url(r'^$', views.home_page, name='home'),
 
                        url(r'^contact/$', views.contact, name='contact'),
-                       url(r'^thanks/$', views.contact, name='thanks'),
+                       url(r'^sms/$', views.sms, name='sms'),
+                       url(r'^thanks/$', views.thanks, name='thanks'),
 
                        # url(r'^(?P<pk>\d+)/$', views.DetailView.as_view(), name='detail'),
                        # url(r'^(?P<pk>\d+)/results/$', views.ResultsView.as_view(), name='results'),

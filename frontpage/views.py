@@ -1,22 +1,11 @@
-from django.core.mail import send_mail, BadHeaderError
 from django.shortcuts import render  # get_object_or_404
 from django.http import HttpResponseRedirect
-# from django.views import generic
-
-from django.views.generic import TemplateView
+from django.core.mail import send_mail  # BadHeaderError
 
 from frontpage.models import Slider, Marketing, Feature
-from frontpage.forms import EmailForm
+from frontpage.forms import ContactForm
 
 # Create your views here.
-
-"""
-def base_page(request):
-    site_title = Title.objects.all()
-
-    context = {'title': site_title }
-    return render(request, 'frontpage/navbar.html', context)
-"""
 
 
 def home_page(request):
@@ -30,26 +19,27 @@ def home_page(request):
     return render(request, 'frontpage/home.html', context)
 
 
-def sendmail(request):
+def contact(request):
+    errors = []
     if request.method == 'POST':
-        form = EmailForm(request.POST)
-        if form.is_valid():
-            firstname = form.cleaned_data['firstname']
-            lastname = form.cleaned_data['lastname']
-            email = form.cleaned_data['email'] #send this for contacting back,kl
-            subject = form.cleaned_data['subject']
-            botcheck = form.cleaned_data['botcheck'].lower()
-            message = form.cleaned_data['message']
-            if botcheck == 'yes':
-                try:
-                    fullemail = firstname + " " + \
-                        lastname + " " + "<" + email + ">"
-                    send_mail(
-                        subject, message, fullemail, ['SENDTOUSER@DOMAIN.COM'])
-                    return HttpResponseRedirect('/email/thankyou/')
-                except:
-                    return HttpResponseRedirect('/email/')
-        else:
-            return HttpResponseRedirect('/email/')
-    else:
-        return HttpResponseRedirect('/email/')
+        if not request.POST.get('subject', ''):
+            errors.append('Enter a subject.')
+        if not request.POST.get('message', ''):
+            errors.append('Enter a message.')
+        if request.POST.get('email') and '@' not in request.POST['email']:
+            errors.append('Enter a valid e-mail address.')
+        if not errors:
+            send_mail(
+                request.POST['subject'],
+                request.POST['message'],
+                request.POST.get('email', 'noreply@simplesite.com'),
+                ['administrator@simplesite.com'], #email address where message is sent.
+            )
+            return HttpResponseRedirect('frontpage/thanks/')
+    return render(request, 'frontpage/contact.html',
+        {'errors': errors})
+
+
+def thanks(request):
+    return render(request, 'frontpage/thanks.html')
+

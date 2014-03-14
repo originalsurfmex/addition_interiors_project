@@ -45,7 +45,7 @@
                     <li class="active"><a href="{% url 'frontpage:home' %}">Home</a></li>
                     <li><a href="#clients">Clients</a></li>
                     <li><a href="#suppliers">Suppliers</a></li>
-                    <li><a href="{% url 'admin:index' %}">Login</a></li>
+                    
     <!-- NAVBAR DROPDOWN
 
                     <li class="dropdown">
@@ -79,6 +79,14 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->            
         
+    <!-- FOOTER -->
+    <!-- ================================================== -->
+        <footer>
+            <p class="pull-right"><a href="#">Back to top</a></p>
+            <p>&copy; 2014 Addition Interiors &middot; <a href="{% url 'admin:index' %}">Login</a></p>
+        </footer>
+    </div>
+
         <script src="{% static "frontpage/js/jquery-2.1.0.min.js" %}"></script>
         <script src="{% static "frontpage/js/bootstrap.min.js" %}"></script>
         <script src="{% static "frontpage/js/holder.js" %}"></script>

@@ -31,8 +31,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     # 'grappelli',
-    'suit',
-    # 'djangocms_admin_style',
+    # 'suit',
+    'djangocms_admin_style',
     # 'admin_shortcuts',
     'django.contrib.contenttypes',
     'django.contrib.auth',
@@ -93,8 +93,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
-STATIC_ROOT = '/var/www/static'
-MEDIA_ROOT = '/var/www/media'
+# STATIC_ROOT = '/var/www/static'
+# MEDIA_ROOT = '/var/www/media'
 
 # GRAPPELLI and Django-Suit SPECIFIC RECOMMENDED ##
 STATICFILES_FINDERS = (

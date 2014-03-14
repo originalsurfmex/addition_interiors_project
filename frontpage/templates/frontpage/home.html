@@ -85,11 +85,10 @@
               <p>{% inplace_edit "marketing.0.marketing_text" %}</p>
               <!-- <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
               
-              <form action="/contact/" method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Submit" />
-              </form>
+
+              {% block contact %}
+              {% include 'frontpage/contact.html' %}
+              {% endblock %}
 
             </div><!-- /.col-lg-4 -->
             
@@ -157,12 +156,7 @@
           <!-- /END THE FEATURETTES -->
 
 
-          <!-- FOOTER -->
-          <footer>
-            <p class="pull-right"><a href="#">Back to top</a></p>
-            <p>&copy; 2014 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-          </footer>
 
-        </div><!-- /.container -->
+
 
 {% endblock content %} 

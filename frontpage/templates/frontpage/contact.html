@@ -1,0 +1,23 @@
+
+{% block content %}
+      
+    {% if errors %}
+        <ul>
+            {% for error in errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+  
+    <form action="/thanks/" method="post">
+    {% csrf_token %}
+        <input type="text" name="subject" placeholder="I want a free estimate...">
+        <p></p>
+        <input type="text" name="email" placeholder="email address (optional)">
+        <p></p>
+        <textarea name="message" placeholder="here are some things I need..."></textarea>
+        <br />
+        <input type="submit" value="Submit">
+    </form>
+
+{% endblock %}

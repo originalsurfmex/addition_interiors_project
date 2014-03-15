@@ -7,6 +7,9 @@ from django.views.generic.base import TemplateView
 
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+#DJANGO-FILEBROWSER
+from filebrowser.sites import site
+
 from frontpage import views
 
 
@@ -16,9 +19,11 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     # url(r'^blog/', include('blog.urls')),
-
-    # url(r'^grappelli/', include('grappelli.urls')), #grappelli urls
+    
+    url(r'^admin/filebrowser/', include(site.urls)),
+    url(r'^grappelli/', include('grappelli.urls')), #grappelli urls
     url(r'^admin/', include(admin.site.urls), name='admin'),
+
     url(r'^inplaceeditform/', include('inplaceeditform.urls')),
     #---------- APPS ----------#    
     url(r'', include('frontpage.urls', namespace='frontpage')),

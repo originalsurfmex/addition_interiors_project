@@ -9,7 +9,9 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from django.conf import settings
 import os
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 
@@ -30,9 +32,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    # 'grappelli',
+    'grappelli',
+    'filebrowser',
     # 'suit',
-    'djangocms_admin_style',
+    # 'djangocms_admin_style',
     # 'admin_shortcuts',
     'django.contrib.contenttypes',
     'django.contrib.auth',
@@ -92,6 +95,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # STATIC_ROOT = '/var/www/static'
 # MEDIA_ROOT = '/var/www/media'
@@ -155,3 +159,21 @@ EMAIL_HOST_USER = "xxxxxxxxxx@gmail.com"
 EMAIL_HOST_PASSWORD = 'xxxxxxxxxx'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+
+#-------------------------------------------------------------
+# DJANGO-FILEBROWSER
+#-------------------------------------------------------------
+
+FILEBROWSER_VERSIONS_BASEDIR = '_versions'
+FILEBROWSER_VERSIONS = {
+  'admin_thumbnail': {'verbose_name': 'Admin Thumbnail', 'width': 60, 'height': 60, 'opts': 'crop'},
+  'thumbnail': {'verbose_name': 'Thumbnail (1 col)', 'width': 60, 'height': 60, 'opts': 'crop'},
+  'small': {'verbose_name': 'Small (2 col)', 'width': 140, 'height': '', 'opts': ''},
+  'medium': {'verbose_name': 'Medium (4col )', 'width': 300, 'height': '', 'opts': ''},
+  'big': {'verbose_name': 'Big (6 col)', 'width': 460, 'height': '', 'opts': ''},
+  'large': {'verbose_name': 'Large (8 col)', 'width': 680, 'height': '', 'opts': ''},
+  'mega': {'verbose_name': 'Mega (12 col)', 'width': 940, 'height': '', 'opts': ''},
+}
+
+FILEBROWSER_ADMIN_VERSIONS = getattr(settings, 'FILEBROWSER_ADMIN_VERSIONS', ['thumbnail', 'small', 'medium', 'big', 'large', 'mega'])

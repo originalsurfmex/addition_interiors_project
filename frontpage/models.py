@@ -4,6 +4,8 @@ from django.core.mail import send_mail
 
 from django.core.exceptions import ValidationError
 
+from filebrowser.fields import FileBrowseField
+
 
 # ------------------------------------------------------------
 # VALIDATIONS
@@ -47,8 +49,9 @@ class Slider(models.Model):
     slider_order = models.PositiveSmallIntegerField(
         default=1, blank=True, null=True, choices=[(1, 'first'),
                                                    (2, 'middle'), (3, 'last')])
-    slider_image = models.ImageField(
-        upload_to='media/frontpage/slider', blank=True, null=True,)
+    slider_image = FileBrowseField("Image", max_length=200, directory="frontpage/sliders", blank=True, null=True)
+    # slider_image = models.ImageField(
+    #     upload_to='media/frontpage/slider', blank=True, null=True,)
     link = "Edit"
 
     def clean(self):
@@ -64,8 +67,9 @@ class Marketing(models.Model):
     marketing_order = models.PositiveSmallIntegerField(
         default=1, blank=True, null=True, choices=[(1, 'first'),
                                                    (2, 'middle'), (3, 'last')])
-    marketing_image = models.ImageField(
-        upload_to='media/frontpage/marketing', blank=True, null=True,)
+    marketing_image = FileBrowseField("Image", max_length=200, directory="frontpage/marketing", blank=True, null=True)
+    #marketing_image = models.ImageField(
+    #    upload_to='media/frontpage/marketing', blank=True, null=True,)
     link = "Edit"
 
     def clean(self):
@@ -82,8 +86,9 @@ class Feature(models.Model):
     feature_order = models.PositiveSmallIntegerField(
         default=1, blank=True, null=True, choices=[(1, 'first'),
                                                    (2, 'middle'), (3, 'last')])
-    feature_image = models.ImageField(
-        upload_to='media/frontpage/feature', blank=True, null=True,)
+    feature_image = FileBrowseField("Image", max_length=200, directory="frontpage/feature", blank=True, null=True)
+    #feature_image = models.ImageField(
+    #    upload_to='media/frontpage/feature', blank=True, null=True,)
     link = "Edit"
 
     def clean(self):

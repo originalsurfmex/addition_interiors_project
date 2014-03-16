@@ -6,6 +6,8 @@ from django.core.exceptions import ValidationError
 
 from filebrowser.fields import FileBrowseField
 
+import os
+
 
 # ------------------------------------------------------------
 # VALIDATIONS
@@ -49,7 +51,8 @@ class Slider(models.Model):
     slider_order = models.PositiveSmallIntegerField(
         default=1, blank=True, null=True, choices=[(1, 'first'),
                                                    (2, 'middle'), (3, 'last')])
-    slider_image = FileBrowseField("Image", max_length=200, directory="frontpage/sliders", blank=True, null=True)
+    slider_image = FileBrowseField(
+        "Image", max_length=200, directory="frontpage/sliders", blank=True, null=True)
     # slider_image = models.ImageField(
     #     upload_to='media/frontpage/slider', blank=True, null=True,)
     link = "Edit"
@@ -67,8 +70,9 @@ class Marketing(models.Model):
     marketing_order = models.PositiveSmallIntegerField(
         default=1, blank=True, null=True, choices=[(1, 'first'),
                                                    (2, 'middle'), (3, 'last')])
-    marketing_image = FileBrowseField("Image", max_length=200, directory="frontpage/marketing", blank=True, null=True)
-    #marketing_image = models.ImageField(
+    marketing_image = FileBrowseField(
+        "Image", max_length=200, directory="frontpage/marketing", blank=True, null=True)
+    # marketing_image = models.ImageField(
     #    upload_to='media/frontpage/marketing', blank=True, null=True,)
     link = "Edit"
 
@@ -86,8 +90,10 @@ class Feature(models.Model):
     feature_order = models.PositiveSmallIntegerField(
         default=1, blank=True, null=True, choices=[(1, 'first'),
                                                    (2, 'middle'), (3, 'last')])
-    feature_image = FileBrowseField("Image", max_length=200, directory="frontpage/feature", blank=True, null=True)
-    #feature_image = models.ImageField(
+    feature_image = FileBrowseField(
+        "Image", max_length=200, directory="frontpage/feature", blank=True,
+        null=True)
+    # feature_image = models.ImageField(
     #    upload_to='media/frontpage/feature', blank=True, null=True,)
     link = "Edit"
 
@@ -96,3 +102,36 @@ class Feature(models.Model):
 
     def __str__(self):
         return self.feature_title
+
+
+class Relationship(models.Model):
+    relationship_title = models.CharField(max_length=40)
+    relationship_comment = models.CharField(max_length=500)
+    relationshop_image = FileBrowseField(
+        "Image", max_length=200, directory="frontpage/relationship",
+        blank=True, null=True)
+    link = "Edit"
+
+    def __str__(self):
+        return self.relationship_title
+
+
+class Brand(models.Model):
+    brand_title = models.CharField(max_length=20)
+    brand_image = FileBrowseField(
+        "Image", max_length=200, directory="frontpage/brand", blank=True,
+        null=True)
+
+    def __str__(self):
+        return self.brand_title
+
+
+class About(models.Model):
+    about_title = models.CharField(max_length=20)
+    about_image = FileBrowseField(
+        "Image", max_length=200, directory="frontpage/brand",
+        blank=True, null=True)
+    link = "Edit"
+
+    def __str__(self):
+        return self.about_title

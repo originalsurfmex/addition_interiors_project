@@ -2,8 +2,10 @@ from django.shortcuts import render  # get_object_or_404
 from django.http import HttpResponseRedirect
 from django.core.mail import send_mail  # BadHeaderError
 
-from frontpage.models import Slider, Marketing, Feature
-from frontpage.forms import ContactForm
+from django.views.generic import ListView, DetailView
+
+from frontpage.models import Slider, Marketing, Feature, Relationship, Brand, About
+#from frontpage.forms import ContactForm
 
 # Create your views here.
 
@@ -33,11 +35,13 @@ def contact(request):
                 request.POST['subject'],
                 request.POST['message'],
                 request.POST.get('email', 'noreply@additioninteriors.com'),
-                ['email@additioninteriors.com'], #email address where message is sent.
+                # email address where message is sent.
+                ['email@additioninteriors.com'],
             )
             return HttpResponseRedirect('frontpage/thanks/')
     return render(request, 'frontpage/contact.html',
-        {'errors': errors})
+                  {'errors': errors})
+
 
 def sms(request):
     errors = []
@@ -53,13 +57,29 @@ def sms(request):
                 request.POST['subject'],
                 request.POST['message'],
                 request.POST.get('email', 'noreply@additioninteriors.com'),
-                ['sms@additioninteriors.com'], #email address where message is sent.
+                # email address where message is sent.
+                ['sms@additioninteriors.com'],
             )
             return HttpResponseRedirect('frontpage/thanks/')
     return render(request, 'frontpage/sms.html',
-        {'errors': errors})
+                  {'errors': errors})
 
 
 def thanks(request):
     return render(request, 'frontpage/thanks.html')
 
+# --------------------------------------------------#
+# STATIC PAGES - GENERIC TEMPLATES #
+# --------------------------------------------------#
+
+
+class RelationshipList(ListView):
+    model = Relationship
+
+
+class BrandList(ListView):
+    model = Brand
+
+
+class AboutDetail(DetailView):
+    model = About

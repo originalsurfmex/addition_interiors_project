@@ -22,7 +22,11 @@ TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 SECRET_KEY = '1s&a^j^cd!7)@%%f$t_c0a@4&jk&+i$dlrmh2-#2c(8nqkab4*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = True
+
+#DEBUG = False
+#ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 TEMPLATE_DEBUG = True
 
@@ -94,6 +98,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 

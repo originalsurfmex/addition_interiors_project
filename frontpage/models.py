@@ -52,7 +52,7 @@ class Slider(models.Model):
         default=1, blank=True, null=True, choices=[(1, 'first'),
                                                    (2, 'middle'), (3, 'last')])
     slider_image = FileBrowseField(
-        "Image", max_length=200, directory="frontpage/sliders", blank=True, null=True)
+        "Image", max_length=200, directory="frontpage/sliders/", blank=True, null=True)
     # slider_image = models.ImageField(
     #     upload_to='media/frontpage/slider', blank=True, null=True,)
     link = "Edit"
@@ -71,7 +71,7 @@ class Marketing(models.Model):
         default=1, blank=True, null=True, choices=[(1, 'first'),
                                                    (2, 'middle'), (3, 'last')])
     marketing_image = FileBrowseField(
-        "Image", max_length=200, directory="frontpage/marketing", blank=True, null=True)
+        "Image", max_length=200, directory="frontpage/marketing/", blank=True, null=True)
     # marketing_image = models.ImageField(
     #    upload_to='media/frontpage/marketing', blank=True, null=True,)
     link = "Edit"
@@ -91,7 +91,7 @@ class Feature(models.Model):
         default=1, blank=True, null=True, choices=[(1, 'first'),
                                                    (2, 'middle'), (3, 'last')])
     feature_image = FileBrowseField(
-        "Image", max_length=200, directory="frontpage/feature", blank=True,
+        "Image", max_length=200, directory="frontpage/feature/", blank=True,
         null=True)
     # feature_image = models.ImageField(
     #    upload_to='media/frontpage/feature', blank=True, null=True,)
@@ -108,7 +108,7 @@ class Relationship(models.Model):
     relationship_title = models.CharField(max_length=40)
     relationship_comment = models.CharField(max_length=500)
     relationshop_image = FileBrowseField(
-        "Image", max_length=200, directory="frontpage/relationship",
+        "Image", max_length=200, directory="frontpage/relationship/",
         blank=True, null=True)
     link = "Edit"
 
@@ -119,7 +119,7 @@ class Relationship(models.Model):
 class Brand(models.Model):
     brand_title = models.CharField(max_length=20)
     brand_image = FileBrowseField(
-        "Image", max_length=200, directory="frontpage/brand", blank=True,
+        "Image", max_length=200, directory="frontpage/brand/", blank=True,
         null=True)
 
     def __str__(self):
@@ -129,7 +129,7 @@ class Brand(models.Model):
 class About(models.Model):
     about_title = models.CharField(max_length=20)
     about_image = FileBrowseField(
-        "Image", max_length=200, directory="frontpage/brand",
+        "Image", max_length=200, directory="frontpage/about/",
         blank=True, null=True)
     link = "Edit"
 

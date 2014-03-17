@@ -107,7 +107,7 @@ class Feature(models.Model):
 class Relationship(models.Model):
     relationship_title = models.CharField(max_length=40)
     relationship_comment = models.CharField(max_length=500)
-    relationshop_image = FileBrowseField(
+    relationship_image = FileBrowseField(
         "Image", max_length=200, directory="frontpage/relationship/",
         blank=True, null=True)
     link = "Edit"
@@ -121,6 +121,7 @@ class Brand(models.Model):
     brand_image = FileBrowseField(
         "Image", max_length=200, directory="frontpage/brand/", blank=True,
         null=True)
+    link = "Edit"
 
     def __str__(self):
         return self.brand_title
@@ -128,6 +129,7 @@ class Brand(models.Model):
 
 class About(models.Model):
     about_title = models.CharField(max_length=20)
+    about_story = models.CharField(max_length=1000)
     about_image = FileBrowseField(
         "Image", max_length=200, directory="frontpage/about/",
         blank=True, null=True)

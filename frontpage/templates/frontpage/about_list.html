@@ -1,0 +1,19 @@
+{% extends 'frontpage/base.html' %}
+{% load inplace_edit %}
+
+{% block content %} 
+
+{% for item in about_list %}
+  <div class='container'>
+    <div class='centered'>
+
+        <img src="{{ MEDIA_URL }}{{ item.about_image }}" alt="{{ item.about_title }}" />
+
+        <h2> {{ item.about_title }} </h2>
+
+        <p> {{ item.about_story }} </p>
+    </div>
+  </div>
+{% endfor %}
+
+{% endblock content %} 

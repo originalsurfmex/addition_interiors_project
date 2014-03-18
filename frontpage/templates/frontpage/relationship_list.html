@@ -8,11 +8,12 @@
 <br />
 
 {% for item in relationship_list %}
-	<div class='container clearfix' style='margin-left: 3em;'>
-		<div class='bubble'>
+	<div class='container centered' style='margin-left: 3em;'>
+		<div class='bubble-centered'>
 			<p>	{% inplace_edit "item.relationship_comment" %} </p>
 		</div>
-		<p> <p>	{% inplace_edit "item.relationship_title" %} </p>
+		<br />
+		<p>	{% inplace_edit "item.relationship_title" %} </p>
 	</div>
 
 	<hr>

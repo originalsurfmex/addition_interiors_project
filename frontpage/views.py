@@ -81,5 +81,5 @@ class BrandList(ListView):
     model = Brand
 
 
-class AboutDetail(DetailView):
+class AboutDetail(ListView):
     model = About

@@ -36,7 +36,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                   </button>
-                  <a class="navbar-brand" href="#"> 
+                  <a class="navbar-brand" href="{% url 'frontpage:home' %}"> 
                         <img src="{% static "frontpage/images/Addition-Interiors-logo-small.png" %}" class="img-responsive" />
                   </a>
                 </div>
@@ -44,8 +44,8 @@
                   <ul class="nav navbar-nav">
                     <li><a class='navlink' href="{% url 'frontpage:home' %}">Home</a></li>
                     <li><a class='navlink' href="{% url 'frontpage:relationship-list' %}">Relationships</a></li>
-                    <li><a class='navlink' href="#brands">Brands</a></li>
-                    <li><a class='navlink' href="#about">About Us</a></li>
+                    <li><a class='navlink' href="{% url 'frontpage:brand-list' %}">Brands</a></li>
+                    <li><a class='navlink' href="{% url 'frontpage:about-list' %}">About Us</a></li>
                     
     <!-- NAVBAR DROPDOWN
 

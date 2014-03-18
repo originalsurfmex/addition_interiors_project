@@ -3,19 +3,6 @@
 
 {% block content %} 
 
-<div>
-  <h1> PEOPLE LOVE WORKING WITH US </h1>
-</div>
-<div class="row featurette">
-  <div class="col-md-7">
-    <h2 class="featurette-heading">  <span class="text-muted"> {% inplace_edit "feature.2.feature_subtitle" %} </span></h2>
-      <p class="lead"> {% inplace_edit "feature.2.feature_text" %} </p>
-  </div>
-  <div class="col-md-5">
-    <!--INTENDED IMAGE SIZE 150x150 -->
-    <img class="featurette-image img-responsive" src="{{ MEDIA_URL}}{{ feature.2.feature_image }}" alt="{{ feature.2.feature_title }}" />
-  </div>
-</div>
-
+{{ object.title }}
 
 {% endblock content %} 

@@ -117,7 +117,7 @@ class Relationship(models.Model):
 
 
 class Brand(models.Model):
-    brand_title = models.CharField(max_length=20)
+    brand_title = models.CharField(max_length=40)
     brand_image = FileBrowseField(
         "Image", max_length=200, directory="frontpage/brand/", blank=True,
         null=True)
@@ -128,7 +128,7 @@ class Brand(models.Model):
 
 
 class About(models.Model):
-    about_title = models.CharField(max_length=20)
+    about_title = models.CharField(max_length=40)
     about_story = models.CharField(max_length=1000)
     about_image = FileBrowseField(
         "Image", max_length=200, directory="frontpage/about/",

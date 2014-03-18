@@ -3,164 +3,18 @@
 
 {% block content %} 
 
+<br />
+<p></p>
+<br />
 
-    <!-- Carousel
-    ================================================== -->
-        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-          <!-- Indicators -->
-          <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-          </ol>
-        
-          <div class="carousel-inner">
+{% for item in brand_list %}
+  <div class='container'>
+    <div class='centered'>
 
-            
-            <div class="item active">
-              <img src="{{ MEDIA_URL}}{{ sliders.0.slider_image }}" alt="{{ sliders.0.slider_title }}" class="img-responsive" />
-              <div class="container">
-                <div class="carousel-caption">
+        <img src="{{ MEDIA_URL }}{{ item.brand_image }}" alt="{{ item.brand_title }}" />
 
-                  <h1> {% inplace_edit "sliders.0.slider_title" %} </h1>
-                  <p>{% inplace_edit "sliders.0.slider_text" %}</p>
-                  
-
-                  <!-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p> -->
-                </div>
-              </div>
-            </div>
-        
-            <div class="item">
-              <img src="{{ MEDIA_URL}}{{ sliders.1.slider_image }}" alt="{{ sliders.1.slider_title }}" class="img-responsive" />
-              <div class="container">
-                <div class="carousel-caption">
-
-                  <h1>{% inplace_edit "sliders.1.slider_title" %}</h1>
-                  <p>{% inplace_edit "sliders.1.slider_text" %}</p>
-
-
-                  <!-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p> -->
-                </div>
-              </div>
-            </div>
-        
-            <div class="item">
-              <img src="{{ MEDIA_URL}}{{ sliders.2.slider_image }}" alt="{{ sliders.2.slider_title }}" class="img-responsive" />
-              <div class="container">
-                <div class="carousel-caption">
-
-                  <h1>{% inplace_edit "sliders.2.slider_title" %}</h1>
-                  <p>{% inplace_edit "sliders.2.slider_text" %}</p>
-
-                  <!-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p> -->
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-          </a>
-          <a class="right carousel-control" href="#myCarousel" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-          </a>
-        
-        </div><!-- /.carousel -->
-
-
-
-        <!-- Marketing messaging and featurettes
-    ================================================== -->
-        <!-- Wrap the rest of the page in another container to center all the content. -->
-
-        <div class="container marketing">
-
-          <!-- Three columns of text below the carousel -->
-          <div class="row">
-            <div class="col-lg-4">
-            <!--INTENDED IMAGE SIZE 150x150 -->
-              <img class="marketing-img img-circle img-responsive" src="{{ MEDIA_URL}}{{ marketing.0.marketing_image }}" alt="{{ marketing.0.marketing_title }}" />
-              <h2>{% inplace_edit "marketing.0.marketing_title" %}</h2>
-              <p>{% inplace_edit "marketing.0.marketing_text" %}</p>
-              <!-- <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
-              
-              {% block sms %}
-              {% include 'frontpage/sms.html' %}
-              {% endblock %}
-
-            </div><!-- /.col-lg-4 -->
-            
-
-            <div class="col-lg-4">
-              <img class="marketing-img img-circle img-responsive" src="{{ MEDIA_URL}}{{ marketing.1.marketing_image }}" alt="{{ marketing.1.marketing_title }}" />
-              <h2>{% inplace_edit "marketing.1.marketing_title" %}</h2>
-              <p>{% inplace_edit "marketing.1.marketing_text" %}</p>
-              <!-- <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
-              
-              {% block contact %}
-              {% include 'frontpage/contact.html' %}
-              {% endblock %}
-
-            </div><!-- /.col-lg-4 -->
-            
-
-            <div class="col-lg-4">
-              <img class="marketing-img img-circle img-responsive" src="{{ MEDIA_URL}}{{ marketing.2.marketing_image }}" alt="{{ marketing.2.marketing_title }}" />
-              <h2>{% inplace_edit "marketing.2.marketing_title" %}</h2>
-              <p>{% inplace_edit "marketing.2.marketing_text" %}</p>
-              <!-- <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
-            </div><!-- /.col-lg-4 -->
-          </div><!-- /.row -->
-
-
-          <!-- START THE FEATURETTES -->
-
-          <hr class="featurette-divider">
-
-          <div class="row featurette">
-            <div class="col-md-7">
-              <h2 class="featurette-heading"> {% inplace_edit "feature.0.feature_title" %} <span class="text-muted"> {% inplace_edit "feature.0.feature_subtitle" %} </span></h2>
-              <p class="lead"> {% inplace_edit "feature.0.feature_text" %} </p>
-            </div>
-            <div class="col-md-5">
-            <!--INTENDED IMAGE SIZE 500x500 -->
-              <img class="featurette-image img-responsive" src="{{ MEDIA_URL}}{{ feature.0.feature_image }}" alt="{{ feature.0.feature_title }}" />
-            </div>
-          </div>
-
-          <hr class="featurette-divider">
-
-          <div class="row featurette">
-            <div class="col-md-5">
-            <!--INTENDED IMAGE SIZE 150x150 -->
-              <img class="featurette-image img-responsive" src="{{ MEDIA_URL}}{{ feature.1.feature_image }}" alt="{{ feature.1.feature_title }}" />
-            </div>
-            <div class="col-md-7">
-              <h2 class="featurette-heading"> {% inplace_edit "feature.1.feature_title" %} <span class="text-muted"> {% inplace_edit "feature.1.feature_subtitle" %} </span></h2>
-              <p class="lead"> {% inplace_edit "feature.1.feature_text" %} </p>
-            </div>
-          </div>
-
-          <hr class="featurette-divider">
-
-          <div class="row featurette">
-            <div class="col-md-7">
-              <h2 class="featurette-heading"> {% inplace_edit "feature.2.feature_title" %} <span class="text-muted"> {% inplace_edit "feature.2.feature_subtitle" %} </span></h2>
-              <p class="lead"> {% inplace_edit "feature.2.feature_text" %} </p>
-            </div>
-            <div class="col-md-5">
-            <!--INTENDED IMAGE SIZE 150x150 -->
-              <img class="featurette-image img-responsive" src="{{ MEDIA_URL}}{{ feature.2.feature_image }}" alt="{{ feature.2.feature_title }}" />
-            </div>
-          </div>
-
-          <hr class="featurette-divider">
-
-          <!-- /END THE FEATURETTES -->
-
-
-
-
+    </div>
+  </div>
+{% endfor %}
 
 {% endblock content %} 

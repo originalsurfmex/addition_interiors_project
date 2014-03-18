@@ -3,23 +3,19 @@
 
 {% block content %} 
 
-<div>
-  <h1> PEOPLE LOVE WORKING WITH US </h1>
-</div>
+<br />
+<p></p>
+<br />
 
-<!--
+{% for item in relationship_list %}
+	<div class='container clearfix' style='margin-left: 3em;'>
+		<div class='bubble'>
+			<p>	{% inplace_edit "item.relationship_comment" %} </p>
+		</div>
+		<p> <p>	{% inplace_edit "item.relationship_title" %} </p>
+	</div>
 
-<div class="row featurette">
-  <div class="col-md-7">
-    <h2 class="featurette-heading">  <span class="text-muted"> {% inplace_edit "feature.2.feature_subtitle" %} </span></h2>
-      <p class="lead"> {% inplace_edit "feature.2.feature_text" %} </p>
-  </div>
-  <div class="col-md-5">
-
-    <img class="featurette-image img-responsive" src="{{ MEDIA_URL}}{{ feature.2.feature_image }}" alt="{{ feature.2.feature_title }}" />
-  </div>
-</div>
-
--->
+	<hr>
+{% endfor %}
 
 {% endblock content %} 

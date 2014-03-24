@@ -45,7 +45,7 @@
                     <li><a class='navlink' href="{% url 'frontpage:home' %}">Home</a></li>
                     <li><a class='navlink' href="{% url 'frontpage:relationship-list' %}">Relationships</a></li>
                     <li><a class='navlink' href="{% url 'frontpage:brand-list' %}">Brands</a></li>
-                    <li><a class='navlink' href="{% url 'frontpage:about-list' %}">About Us</a></li>
+                    <li><a class='navlink' href="{% url 'frontpage:about-list' %}"><span style="color:red;">Services</span></a></li>
                     
     <!-- NAVBAR DROPDOWN
 
@@ -74,18 +74,21 @@
 
     <!-- CONTENT
     ================================================== -->
+    <div>
         {% block content %} {% endblock %}
-
+    </div>    
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->            
         
     <!-- FOOTER -->
     <!-- ================================================== -->
+    <div class='container'>
         <footer>
             <p class="pull-right"><a href="#">Back to top</a></p>
             <p>&copy; 2014 Addition Interiors &middot; <a href="{% url 'admin:index' %}">Login</a></p>
         </footer>
+    </div>
     </div>
 
         <script src="{% static "frontpage/js/jquery-2.1.0.min.js" %}"></script>

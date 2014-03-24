@@ -25,8 +25,6 @@
                   <h1> {% inplace_edit "sliders.0.slider_title" %} </h1>
                   <p>{% inplace_edit "sliders.0.slider_text" %}</p>
                   
-
-                  <!-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p> -->
                 </div>
               </div>
             </div>
@@ -39,8 +37,6 @@
                   <h1>{% inplace_edit "sliders.1.slider_title" %}</h1>
                   <p>{% inplace_edit "sliders.1.slider_text" %}</p>
 
-
-                  <!-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p> -->
                 </div>
               </div>
             </div>
@@ -83,39 +79,55 @@
               <img class="marketing-img img-circle img-responsive" src="{{ MEDIA_URL}}{{ marketing.0.marketing_image }}" alt="{{ marketing.0.marketing_title }}" />
               <h2>{% inplace_edit "marketing.0.marketing_title" %}</h2>
               <p>{% inplace_edit "marketing.0.marketing_text" %}</p>
-              <!-- <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
               
-              {% block sms %}
-              {% include 'frontpage/sms.html' %}
-              {% endblock %}
-
-            </div><!-- /.col-lg-4 -->
-            
+              <form action="" method="POST">
+              {% csrf_token %}
+              {% csrf_token %}
+              {% for field in smsform %}
+                  {{ field }}<span style='color:red;'>{{ field.errors }}</span>
+                  <p></p>
+              {% endfor %}
+                  <input type="hidden" name="action" value="sms">
+                  <input type="submit" class="btn btn-primary btn-lg" value="Send Text Message">
+              </form>
+              
+            </div>
+            <!-- /.col-lg-4 -->
 
             <div class="col-lg-4">
               <img class="marketing-img img-circle img-responsive" src="{{ MEDIA_URL}}{{ marketing.1.marketing_image }}" alt="{{ marketing.1.marketing_title }}" />
               <h2>{% inplace_edit "marketing.1.marketing_title" %}</h2>
               <p>{% inplace_edit "marketing.1.marketing_text" %}</p>
-
-              <!-- <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
               
-              {% block contact %}
-              {% include 'frontpage/contact.html' %}
-              {% endblock %}
+              <form action="" method="POST">
+              {% csrf_token %}
+              {% csrf_token %}
+              {% for field in emailform %}
+                  {{ field }}<span style='color:red;'>{{ field.errors }}</span>
+                  <p></p>
+              {% endfor %}
+                  <input type="hidden" name="action" value="email">
+                  <input type="submit" class="btn btn-primary btn-lg" value="Send Email">
+              </form>
 
-            </div><!-- /.col-lg-4 -->
-            
+            </div>
+            <!-- /.col-lg-4 -->
 
             <div class="col-lg-4">
               <img class="marketing-img img-circle img-responsive" src="{{ MEDIA_URL}}{{ marketing.2.marketing_image }}" alt="{{ marketing.2.marketing_title }}" />
               <h2>{% inplace_edit "marketing.2.marketing_title" %}</h2>
               <p>{% inplace_edit "marketing.2.marketing_text" %}</p>
-              <h3><span class="glyphicon glyphicon-star-empty"></span> Commercial Carpets <span class="glyphicon glyphicon-star-empty"></span> </h3>
-              <h3><span class="glyphicon glyphicon-star-empty"></span> Budget Remnants <span class="glyphicon glyphicon-star-empty"></span> </h3>
-              <h3><span class="glyphicon glyphicon-star-empty"></span> Sewn Cove Binding <span class="glyphicon glyphicon-star-empty"></span> </h3>
-              <!-- <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
-            </div><!-- /.col-lg-4 -->
-          </div><!-- /.row -->
+              <br />
+                {% for item in skills %}
+                <h4 class="bg-info"> {% inplace_edit "item.skills" %} </h4>
+                <p></p>
+                {% endfor %}
+              <br />
+              <p><a class="btn btn-default btn-lg btn-block" href="{% url 'frontpage:about-list' %}" role="button">Details &raquo;</a></p>
+            </div>
+            <!-- /.col-lg-4 -->
+          </div>
+          <!-- /.row -->
 
 
           <!-- START THE FEATURETTES -->

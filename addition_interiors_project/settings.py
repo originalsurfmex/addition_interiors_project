@@ -52,6 +52,8 @@ INSTALLED_APPS = (
     # adding south to try out with django 1.6
     'south',
     'inplaceeditform',
+    'inplaceeditform_extra_fields',
+    #'tinymce',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -159,12 +161,13 @@ INPLACE_SAVE_URL = None
 #-------------------------------------------------------------
 # send_mail
 #-------------------------------------------------------------
+"""
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = "xxxxxxxxxx@gmail.com"
 EMAIL_HOST_PASSWORD = 'xxxxxxxxxx'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
+"""
 
 #-------------------------------------------------------------
 # DJANGO-FILEBROWSER

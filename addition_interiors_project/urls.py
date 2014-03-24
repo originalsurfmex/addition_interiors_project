@@ -25,6 +25,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls), name='admin'),
 
     url(r'^inplaceeditform/', include('inplaceeditform.urls')),
+    # url(r'^tinymce/', include('tinymce.urls')),
     #---------- APPS ----------#    
     url(r'', include('frontpage.urls', namespace='frontpage')),
 ) 

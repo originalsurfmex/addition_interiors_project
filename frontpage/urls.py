@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
 
 from frontpage import views
-from frontpage.views import RelationshipList, BrandList, AboutDetail
+from frontpage.views import SkillsList, RelationshipList, BrandList, AboutDetail
 
 urlpatterns = patterns('',
                        # url(r'^$', views.base_page, name='base'),
@@ -10,6 +10,9 @@ urlpatterns = patterns('',
                        url(r'^contact/$', views.contact, name='contact'),
                        url(r'^sms/$', views.sms, name='sms'),
                        url(r'^thanks/$', views.thanks, name='thanks'),
+
+                       url(r'^skills/$', SkillsList.as_view(), name='skills-list'),
+
                        url(r'^relationships/$', RelationshipList.as_view(),
                            name='relationship-list'),
                        url(r'^brands/$', BrandList.as_view(), name='brand-list'),

@@ -4,8 +4,8 @@ from django.core.mail import send_mail  # BadHeaderError
 
 from django.views.generic import ListView, DetailView
 
-from frontpage.models import Slider, Marketing, Feature, Relationship, Brand, About
-#from frontpage.forms import ContactForm
+from frontpage.models import Slider, Marketing, Feature, Skills, Relationship, Brand, About
+from frontpage.forms import ContactForm, SMSForm
 
 # Create your views here.
 
@@ -14,9 +14,27 @@ def home_page(request):
     all_sliders = Slider.objects.all()
     all_marketing = Marketing.objects.all()
     all_features = Feature.objects.all()
+    skill_set = Skills.objects.all()
+    
+    #clunky way of adding the form...no goood
+    if request.method == 'POST' and request.POST['action'] == 'email':
+        emailform = ContactForm(request.POST)
+        if emailform.is_valid():
+            return HttpResponseRedirect('frontpage/thanks/')
+    else:
+        emailform = ContactForm()
+
+    if request.method == 'POST' and request.POST['action'] == 'sms':
+        smsform = SMSForm(request.POST)
+        if smsform.is_valid():
+            return HttpResponseRedirect('frontpage/thanks/')
+    else:
+        smsform = SMSForm()
 
     context = {'sliders': all_sliders, 'marketing': all_marketing,
-               'feature': all_features,
+               'feature': all_features, 'skills': skill_set, 
+               #remove this clunky form dict
+               'emailform': emailform, 'smsform': smsform,
                }
     return render(request, 'frontpage/home.html', context)
 
@@ -72,6 +90,8 @@ def thanks(request):
 # STATIC PAGES - GENERIC TEMPLATES #
 # --------------------------------------------------#
 
+class SkillsList(ListView):
+    model = Skills
 
 class RelationshipList(ListView):
     model = Relationship
@@ -79,7 +99,6 @@ class RelationshipList(ListView):
 
 class BrandList(ListView):
     model = Brand
-
 
 class AboutDetail(ListView):
     model = About

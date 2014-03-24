@@ -4,15 +4,17 @@
 {% block content %} 
 
 {% for item in about_list %}
+  <div>
   <div class='container'>
     <div class='centered'>
 
         <img src="{{ MEDIA_URL }}{{ item.about_image }}" alt="{{ item.about_title }}" />
 
-        <h2> {{ item.about_title }} </h2>
+        <h1 class='bg-info'> {{ item.about_title }} </h1>
 
-        <p> {{ item.about_story }} </p>
+        <p> {{ item.about_story | safe }} </p>
     </div>
+  </div>
   </div>
 {% endfor %}
 

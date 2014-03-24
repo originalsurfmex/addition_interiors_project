@@ -1,0 +1,16 @@
+
+{% load inplace_edit %}
+
+{% block skills %} 
+
+TEST
+
+	{% for item in skills_list %}
+
+		<h3 style='background-color:yellow;'> {% inplace_edit "item.skills" %} </h3>
+
+	{% endfor %}
+
+{% endblock %} 
+
+              

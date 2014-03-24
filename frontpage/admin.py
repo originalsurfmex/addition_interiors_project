@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.forms import TextInput, Textarea, Select
 from django.db import models
 
-from frontpage.models import Title, Slider, Marketing, Feature, Relationship, Brand, About
+from frontpage.models import Title, Slider, Marketing, Feature, Skills, Relationship, Brand, About, Services
 
 # Register your models here.
 
@@ -117,6 +117,24 @@ class FeatureAdmin(admin.ModelAdmin):
         # forms.Select(attrs={'columns': 10, })},
     }
 
+class SkillsAdmin(admin.ModelAdmin):
+
+    # remove "add" button after 3 fields are present
+    def has_add_permission(self, request):
+        if len(Skills.objects.all()) >= 5:
+            return False
+        else:
+            return True
+
+    fieldsets = [
+        (None,  {'fields': ['skills', 'skills_order',]}),
+    ]
+
+    list_display = (
+        'skills', 'skills_order', 'link',)
+    list_display_links = ('link',)
+    list_editable = ('skills', 'skills_order',)
+    exclude = ('link',)
 
 class RelationshipAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -162,16 +180,38 @@ class AboutAdmin(admin.ModelAdmin):
                      'about_story', 'about_image',)
     exclude = ('link',)
 
-    formfield_overrides = {
-        models.TextField: {'widget': Textarea(attrs={'rows': 4, })},
-    }
+    class Media:
+        js = [
+            '/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
+            '/static/frontpage/js/tinymce_setup.js',
+        ]
 
+
+class ServiceAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None, {'fields': ['service_title']}),
+        (None, {'fields': ['service']}),
+    ]
+
+    list_display = ('service_title', 'service', 'link',)
+    list_display_links = ('link'),
+    list_editable = ('service_title', 'service')
+    exclude = ('link',)
+
+    class Media:
+        js = [
+            '/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
+            '/static/frontpage/js/tinymce_setup.js',
+        ]
 
 
 admin.site.register(Title, TitleAdmin)
 admin.site.register(Slider, SliderAdmin)
 admin.site.register(Marketing, MarketingAdmin)
 admin.site.register(Feature, FeatureAdmin)
+admin.site.register(Skills, SkillsAdmin)
+
 admin.site.register(Relationship, RelationshipAdmin)
 admin.site.register(Brand, BrandAdmin)
 admin.site.register(About, AboutAdmin)
+admin.site.register(Services, ServiceAdmin)

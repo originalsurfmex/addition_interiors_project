@@ -10,9 +10,10 @@
 
         <img src="{{ MEDIA_URL }}{{ item.about_image }}" alt="{{ item.about_title }}" />
 
-        <h1 class='bg-info'> {{ item.about_title }} </h1>
+        <h1 class='bg-info'> {% inplace_edit "item.about_title" adaptor="tiny" %} </h1>
 
-        <p> {{ item.about_story | safe }} </p>
+        <p> {% inplace_edit "item.about_story" | safe adaptor="tiny" %} </p>
+        <p> {% inplace_edit "item.about_story" adaptor="tiny" %} </p>
     </div>
   </div>
   </div>

@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     # 'admin_shortcuts',
     'django.contrib.contenttypes',
     'django.contrib.auth',
+    #'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -160,6 +161,9 @@ INPLACE_GET_FIELD_URL = None
 # to change the url where django-inplaceedit use to save a field
 INPLACE_SAVE_URL = None
 
+ADAPTOR_INPLACEEDIT = {'tiny': 'inplaceeditform_extra_fields.fields.AdaptorTinyMCEField',
+                       'tiny_simple': 'inplaceeditform_extra_fields.fields.AdaptorSimpleTinyMCEField'}
+#INPLACE_TINYMCE_JS = '/media/tiny_mce/'
 
 #-------------------------------------------------------------
 # send_mail

@@ -104,6 +104,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+##----------
+## FOR PYTHONANYWHERE.COM
+##----------
 # STATIC_ROOT = '/var/www/static'
 # MEDIA_ROOT = '/var/www/media'
 
@@ -132,8 +135,8 @@ INTERNAL_IPS = ('127.0.0.1', '192.168.0.1',)
 
 DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False,}
 
-
-#DEBUG_TOOLBAR_PATCH_SETTINGS = True
+#TURN THIS ON FOR PYTHONANYWHERE:
+#DEBUG_TOOLBAR_PATCH_SETTINGS = False 
 
 #-------------------------------------------------------------
 # FRONT END EDITING

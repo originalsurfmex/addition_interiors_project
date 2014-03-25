@@ -15,72 +15,45 @@ def home_page(request):
     all_marketing = Marketing.objects.all()
     all_features = Feature.objects.all()
     skill_set = Skills.objects.all()
-    
-    #clunky way of adding the form...no goood
+
     if request.method == 'POST' and request.POST['action'] == 'email':
         emailform = ContactForm(request.POST)
         if emailform.is_valid():
-            return HttpResponseRedirect('frontpage/thanks/')
+            subject = 'ADDITION INTERIORS CONTACT FORM: ' + emailform.cleaned_data['subject']
+            message = emailform.cleaned_data['message']
+            sender = emailform.cleaned_data['sender']
+            phone = emailform.cleaned_data['phone']
+            full_message = message + '\n' + 'sent from: ' + \
+                sender + '\n' + 'phone number: ' + phone + '\n'
+
+            recipients = ['xxxxxxxxxxxxxxx@gmail.com']
+            send_mail(subject, full_message, sender, recipients)
+            return HttpResponseRedirect('/thanks/')
     else:
         emailform = ContactForm()
 
     if request.method == 'POST' and request.POST['action'] == 'sms':
         smsform = SMSForm(request.POST)
         if smsform.is_valid():
-            return HttpResponseRedirect('frontpage/thanks/')
+            subject = 'ADDITION INTERIORS TEXT MESSAGE: ' + smsform.cleaned_data['subject']
+            message = smsform.cleaned_data['message']
+            sender = smsform.cleaned_data['sender']
+            cell = smsform.cleaned_data['phone']
+            full_message = message + '\n' + 'sent from: ' + \
+                sender + '\n' + 'phone number: ' + cell + '\n'
+
+            recipients = ['xxxxxxxxxxxxxxx@gmail.com']
+            send_mail(subject, message, sender, recipients)
+            return HttpResponseRedirect('/thanks/')
     else:
         smsform = SMSForm()
 
     context = {'sliders': all_sliders, 'marketing': all_marketing,
-               'feature': all_features, 'skills': skill_set, 
-               #remove this clunky form dict
+               'feature': all_features, 'skills': skill_set,
+               # remove this clunky form dict
                'emailform': emailform, 'smsform': smsform,
                }
     return render(request, 'frontpage/home.html', context)
-
-
-def contact(request):
-    errors = []
-    if request.method == 'POST':
-        if not request.POST.get('subject', ''):
-            errors.append('Enter a subject.')
-        if not request.POST.get('message', ''):
-            errors.append('Enter a message.')
-        if request.POST.get('email') and '@' not in request.POST['email']:
-            errors.append('Enter a valid e-mail address.')
-        if not errors:
-            send_mail(
-                request.POST['subject'],
-                request.POST['message'],
-                request.POST.get('email', 'noreply@additioninteriors.com'),
-                # email address where message is sent.
-                ['email@additioninteriors.com'],
-            )
-            return HttpResponseRedirect('frontpage/thanks/')
-    return render(request, 'frontpage/contact.html',
-                  {'errors': errors})
-
-
-def sms(request):
-    errors = []
-    if request.method == 'POST':
-        if not request.POST.get('subject', ''):
-            errors.append('Enter a subject.')
-        if not request.POST.get('message', ''):
-            errors.append('Enter a message.')
-        if request.POST.get('email') and '@' not in request.POST['email']:
-            errors.append('Enter a valid e-mail address.')
-        if not errors:
-            send_mail(
-                request.POST['subject'],
-                request.POST['message'],
-                request.POST.get('email', 'noreply@additioninteriors.com'),
-                # email address where message is sent.
-                ['sms@additioninteriors.com'],
-            )
-            return HttpResponseRedirect('frontpage/thanks/')
-    return render(request, 'frontpage/sms.html',
-                  {'errors': errors})
 
 
 def thanks(request):
@@ -90,8 +63,10 @@ def thanks(request):
 # STATIC PAGES - GENERIC TEMPLATES #
 # --------------------------------------------------#
 
+
 class SkillsList(ListView):
     model = Skills
+
 
 class RelationshipList(ListView):
     model = Relationship
@@ -99,6 +74,7 @@ class RelationshipList(ListView):
 
 class BrandList(ListView):
     model = Brand
+
 
 class AboutDetail(ListView):
     model = About

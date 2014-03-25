@@ -4,11 +4,8 @@ from frontpage import views
 from frontpage.views import SkillsList, RelationshipList, BrandList, AboutDetail
 
 urlpatterns = patterns('',
-                       # url(r'^$', views.base_page, name='base'),
                        url(r'^$', views.home_page, name='home'),
 
-                       url(r'^contact/$', views.contact, name='contact'),
-                       url(r'^sms/$', views.sms, name='sms'),
                        url(r'^thanks/$', views.thanks, name='thanks'),
 
                        url(r'^skills/$', SkillsList.as_view(), name='skills-list'),
@@ -18,8 +15,4 @@ urlpatterns = patterns('',
                        url(r'^brands/$', BrandList.as_view(), name='brand-list'),
                        url(r'^about/$', AboutDetail.as_view(),
                            name='about-list'),
-
-                       # url(r'^(?P<pk>\d+)/$', views.DetailView.as_view(), name='detail'),
-                       # url(r'^(?P<pk>\d+)/results/$', views.ResultsView.as_view(), name='results'),
-                       # url(r'^(?P<question_id>\d+)/vote/$', views.vote, name='vote'),
                        )

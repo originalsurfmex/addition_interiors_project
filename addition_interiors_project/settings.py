@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from django.conf import settings
+import dj_database_url #HEROKU
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -24,14 +25,27 @@ SECRET_KEY = '1s&a^j^cd!7)@%%f$t_c0a@4&jk&+i$dlrmh2-#2c(8nqkab4*'
 # SECURITY WARNING: don't run with debug turned on in production!
 
 DEBUG = True
-
 #DEBUG = False
 #ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
+#FOR DJANGO DEBUG TOOLBAR
+def show_toolbar(request):
+    return True
+SHOW_TOOLBAR_CALLBACK = show_toolbar
+
+INTERNAL_IPS = ('127.0.0.1', '192.168.0.1',)
+
+DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False,}
+
+#TURN THIS ON FOR PYTHONANYWHERE, GUNICORN, :
+DEBUG_TOOLBAR_PATCH_SETTINGS = False 
+
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = []
 
+#HEROKU:
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -72,15 +86,20 @@ ROOT_URLCONF = 'addition_interiors_project.urls'
 
 WSGI_APPLICATION = 'addition_interiors_project.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'addition_int',                      
+        'USER': 'addition',
+        'PASSWORD': 'db_user_password',
+        'HOST': ''
+    },
+    'dev': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    },
 }
 
 # Internationalization
@@ -126,18 +145,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.media",
 )
 
-
-#FOR DJANGO DEBUG TOOLBAR
-def show_toolbar(request):
-    return True
-SHOW_TOOLBAR_CALLBACK = show_toolbar
-
-INTERNAL_IPS = ('127.0.0.1', '192.168.0.1',)
-
-DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False,}
-
-#TURN THIS ON FOR PYTHONANYWHERE:
-#DEBUG_TOOLBAR_PATCH_SETTINGS = False 
 
 #-------------------------------------------------------------
 # FRONT END EDITING
@@ -192,3 +199,28 @@ FILEBROWSER_VERSIONS = {
 }
 
 FILEBROWSER_ADMIN_VERSIONS = getattr(settings, 'FILEBROWSER_ADMIN_VERSIONS', ['thumbnail', 'small', 'medium', 'big', 'large', 'mega'])
+
+#-------------------------------------------------------------
+# HEROKU
+#-------------------------------------------------------------
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+# see:
+# http://stackoverflow.com/questions/13906127/heroku-tutorial-error-running-python-manage-py-syncdb-to-update-local-database
+DATABASES['default'] =  dj_database_url.config(default='postgres://addition:kristal@localhost:5432/addition_int')
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Allow all host headers
+ALLOWED_HOSTS = ['*']
+
+# Static asset configuration
+import os
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = 'staticfiles'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)

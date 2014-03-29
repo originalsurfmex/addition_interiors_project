@@ -12,8 +12,7 @@
 
         <h1 class='bg-info'> {% inplace_edit "item.about_title" adaptor="tiny" %} </h1>
 
-        <p> {% inplace_edit "item.about_story" | safe adaptor="tiny" %} </p>
-        <p> {% inplace_edit "item.about_story" adaptor="tiny" %} </p>
+        <p> {{ item.about_story | safe }} </p>
     </div>
   </div>
   </div>

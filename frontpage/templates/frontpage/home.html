@@ -1,5 +1,6 @@
 {% extends 'frontpage/base.html' %}
 {% load inplace_edit %}
+{% load custom_tags %}
 
 {% block content %} 
 
@@ -77,6 +78,7 @@
             <div class="col-lg-4">
             <!--INTENDED IMAGE SIZE 150x150 -->
               <img class="marketing-img img-circle img-responsive" src="{{ MEDIA_URL}}{{ marketing.0.marketing_image }}" alt="{{ marketing.0.marketing_title }}" />
+              
               <h2>{% inplace_edit "marketing.0.marketing_title" %}</h2>
               <p>{% inplace_edit "marketing.0.marketing_text" %}</p>
               

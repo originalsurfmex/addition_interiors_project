@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from django.conf import settings
-import dj_database_url #HEROKU
+import dj_database_url  # HEROKU
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -28,23 +28,25 @@ DEBUG = True
 #DEBUG = False
 #ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
-#FOR DJANGO DEBUG TOOLBAR
+# FOR DJANGO DEBUG TOOLBAR
+
+
 def show_toolbar(request):
     return True
 SHOW_TOOLBAR_CALLBACK = show_toolbar
 
 INTERNAL_IPS = ('127.0.0.1', '192.168.0.1',)
 
-DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False,}
+DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False, }
 
-#TURN THIS ON FOR PYTHONANYWHERE, GUNICORN, :
-DEBUG_TOOLBAR_PATCH_SETTINGS = False 
+# TURN THIS ON FOR PYTHONANYWHERE, GUNICORN, :
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 TEMPLATE_DEBUG = True
 
 #ALLOWED_HOSTS = []
 
-#HEROKU:
+# HEROKU:
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -86,21 +88,6 @@ ROOT_URLCONF = 'addition_interiors_project.urls'
 
 WSGI_APPLICATION = 'addition_interiors_project.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/dev/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'addition_int',                      
-        'USER': 'addition',
-        'PASSWORD': 'db_user_password',
-        'HOST': ''
-    },
-    'dev': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
-}
 
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/
@@ -119,14 +106,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATIC_URL = '/static/'
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-##----------
-## FOR PYTHONANYWHERE.COM
-##----------
+# ----------
+# FOR PYTHONANYWHERE.COM
+# ----------
 # STATIC_ROOT = '/var/www/static'
 # MEDIA_ROOT = '/var/www/media'
 
@@ -168,8 +155,9 @@ INPLACE_GET_FIELD_URL = None
 # to change the url where django-inplaceedit use to save a field
 INPLACE_SAVE_URL = None
 
-ADAPTOR_INPLACEEDIT = {'tiny': 'inplaceeditform_extra_fields.fields.AdaptorTinyMCEField',
-                       'tiny_simple': 'inplaceeditform_extra_fields.fields.AdaptorSimpleTinyMCEField'}
+ADAPTOR_INPLACEEDIT = {
+    'tiny': 'inplaceeditform_extra_fields.fields.AdaptorTinyMCEField',
+    'tiny_simple': 'inplaceeditform_extra_fields.fields.AdaptorSimpleTinyMCEField'}
 #INPLACE_TINYMCE_JS = '/media/tiny_mce/'
 
 #-------------------------------------------------------------
@@ -189,25 +177,56 @@ EMAIL_USE_TLS = True
 
 FILEBROWSER_VERSIONS_BASEDIR = '_versions'
 FILEBROWSER_VERSIONS = {
-  'admin_thumbnail': {'verbose_name': 'Admin Thumbnail', 'width': 60, 'height': 60, 'opts': 'crop'},
-  'thumbnail': {'verbose_name': 'Thumbnail (1 col)', 'width': 60, 'height': 60, 'opts': 'crop'},
-  'small': {'verbose_name': 'Small (2 col)', 'width': 140, 'height': '', 'opts': ''},
-  'medium': {'verbose_name': 'Medium (4col )', 'width': 300, 'height': '', 'opts': ''},
-  'big': {'verbose_name': 'Big (6 col)', 'width': 460, 'height': '', 'opts': ''},
-  'large': {'verbose_name': 'Large (8 col)', 'width': 680, 'height': '', 'opts': ''},
-  'mega': {'verbose_name': 'Mega (12 col)', 'width': 940, 'height': '', 'opts': ''},
+    'admin_thumbnail': {'verbose_name': 'Admin Thumbnail', 'width': 60, 'height': 60, 'opts': 'crop'},
+    'thumbnail': {'verbose_name': 'Thumbnail (1 col)', 'width': 60, 'height': 60, 'opts': 'crop'},
+    'small': {'verbose_name': 'Small (2 col)', 'width': 140, 'height': '', 'opts': ''},
+    'medium': {'verbose_name': 'Medium (4col )', 'width': 300, 'height': '', 'opts': ''},
+    'big': {'verbose_name': 'Big (6 col)', 'width': 460, 'height': '', 'opts': ''},
+    'large': {'verbose_name': 'Large (8 col)', 'width': 680, 'height': '', 'opts': ''},
+    'mega': {'verbose_name': 'Mega (12 col)', 'width': 940, 'height': '', 'opts': ''},
 }
 
-FILEBROWSER_ADMIN_VERSIONS = getattr(settings, 'FILEBROWSER_ADMIN_VERSIONS', ['thumbnail', 'small', 'medium', 'big', 'large', 'mega'])
+FILEBROWSER_ADMIN_VERSIONS = getattr(
+    settings, 'FILEBROWSER_ADMIN_VERSIONS', ['thumbnail', 'small', 'medium', 'big', 'large', 'mega'])
+
+
+# Database
+# https://docs.djangoproject.com/en/dev/ref/settings/#databases
+"""
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
+}
+
+"""
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'addition_int',
+        'USER': 'addition',
+        'PASSWORD': 'db_user_password',
+        'HOST': ''
+    },
+    'dev': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
+}
 
 #-------------------------------------------------------------
 # HEROKU
 #-------------------------------------------------------------
 # Parse database configuration from $DATABASE_URL
+
 import dj_database_url
 # see:
 # http://stackoverflow.com/questions/13906127/heroku-tutorial-error-running-python-manage-py-syncdb-to-update-local-database
-DATABASES['default'] =  dj_database_url.config(default='postgres://addition:kristal@localhost:5432/addition_int')
+DATABASES['default'] = dj_database_url.config(
+    default='postgres://addition:kristal@localhost:5432/addition_int')
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -224,3 +243,4 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+

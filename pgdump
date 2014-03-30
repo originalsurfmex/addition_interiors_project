@@ -1,0 +1,1685 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE TABLE auth_group (
+    id integer NOT NULL,
+    name character varying(80) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO addition;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: addition
+--
+
+CREATE SEQUENCE auth_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO addition;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: addition
+--
+
+ALTER SEQUENCE auth_group_id_seq OWNED BY auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE TABLE auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO addition;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: addition
+--
+
+CREATE SEQUENCE auth_group_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO addition;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: addition
+--
+
+ALTER SEQUENCE auth_group_permissions_id_seq OWNED BY auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE TABLE auth_permission (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO addition;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: addition
+--
+
+CREATE SEQUENCE auth_permission_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO addition;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: addition
+--
+
+ALTER SEQUENCE auth_permission_id_seq OWNED BY auth_permission.id;
+
+
+--
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE TABLE auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone NOT NULL,
+    is_superuser boolean NOT NULL,
+    username character varying(30) NOT NULL,
+    first_name character varying(30) NOT NULL,
+    last_name character varying(30) NOT NULL,
+    email character varying(75) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.auth_user OWNER TO addition;
+
+--
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE TABLE auth_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_groups OWNER TO addition;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: addition
+--
+
+CREATE SEQUENCE auth_user_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_groups_id_seq OWNER TO addition;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: addition
+--
+
+ALTER SEQUENCE auth_user_groups_id_seq OWNED BY auth_user_groups.id;
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: addition
+--
+
+CREATE SEQUENCE auth_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_id_seq OWNER TO addition;
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: addition
+--
+
+ALTER SEQUENCE auth_user_id_seq OWNED BY auth_user.id;
+
+
+--
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE TABLE auth_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_user_permissions OWNER TO addition;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: addition
+--
+
+CREATE SEQUENCE auth_user_user_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO addition;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: addition
+--
+
+ALTER SEQUENCE auth_user_user_permissions_id_seq OWNED BY auth_user_user_permissions.id;
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE TABLE django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    user_id integer NOT NULL,
+    content_type_id integer,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO addition;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: addition
+--
+
+CREATE SEQUENCE django_admin_log_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO addition;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: addition
+--
+
+ALTER SEQUENCE django_admin_log_id_seq OWNED BY django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE TABLE django_content_type (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO addition;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: addition
+--
+
+CREATE SEQUENCE django_content_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO addition;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: addition
+--
+
+ALTER SEQUENCE django_content_type_id_seq OWNED BY django_content_type.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE TABLE django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO addition;
+
+--
+-- Name: front_placeholder; Type: TABLE; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE TABLE front_placeholder (
+    key character varying(40) NOT NULL,
+    value text NOT NULL
+);
+
+
+ALTER TABLE public.front_placeholder OWNER TO addition;
+
+--
+-- Name: frontpage_about; Type: TABLE; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE TABLE frontpage_about (
+    id integer NOT NULL,
+    about_title character varying(40) NOT NULL,
+    about_story text NOT NULL,
+    about_image character varying(200)
+);
+
+
+ALTER TABLE public.frontpage_about OWNER TO addition;
+
+--
+-- Name: frontpage_about_id_seq; Type: SEQUENCE; Schema: public; Owner: addition
+--
+
+CREATE SEQUENCE frontpage_about_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.frontpage_about_id_seq OWNER TO addition;
+
+--
+-- Name: frontpage_about_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: addition
+--
+
+ALTER SEQUENCE frontpage_about_id_seq OWNED BY frontpage_about.id;
+
+
+--
+-- Name: frontpage_brand; Type: TABLE; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE TABLE frontpage_brand (
+    id integer NOT NULL,
+    brand_title character varying(40) NOT NULL,
+    brand_image character varying(200)
+);
+
+
+ALTER TABLE public.frontpage_brand OWNER TO addition;
+
+--
+-- Name: frontpage_brand_id_seq; Type: SEQUENCE; Schema: public; Owner: addition
+--
+
+CREATE SEQUENCE frontpage_brand_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.frontpage_brand_id_seq OWNER TO addition;
+
+--
+-- Name: frontpage_brand_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: addition
+--
+
+ALTER SEQUENCE frontpage_brand_id_seq OWNED BY frontpage_brand.id;
+
+
+--
+-- Name: frontpage_feature; Type: TABLE; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE TABLE frontpage_feature (
+    id integer NOT NULL,
+    feature_title character varying(20) NOT NULL,
+    feature_subtitle character varying(20) NOT NULL,
+    feature_text text NOT NULL,
+    feature_order smallint,
+    feature_image character varying(200),
+    CONSTRAINT frontpage_feature_feature_order_check CHECK ((feature_order >= 0))
+);
+
+
+ALTER TABLE public.frontpage_feature OWNER TO addition;
+
+--
+-- Name: frontpage_feature_id_seq; Type: SEQUENCE; Schema: public; Owner: addition
+--
+
+CREATE SEQUENCE frontpage_feature_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.frontpage_feature_id_seq OWNER TO addition;
+
+--
+-- Name: frontpage_feature_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: addition
+--
+
+ALTER SEQUENCE frontpage_feature_id_seq OWNED BY frontpage_feature.id;
+
+
+--
+-- Name: frontpage_marketing; Type: TABLE; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE TABLE frontpage_marketing (
+    id integer NOT NULL,
+    marketing_title character varying(20) NOT NULL,
+    marketing_text text NOT NULL,
+    marketing_order smallint,
+    marketing_image character varying(200),
+    CONSTRAINT frontpage_marketing_marketing_order_check CHECK ((marketing_order >= 0))
+);
+
+
+ALTER TABLE public.frontpage_marketing OWNER TO addition;
+
+--
+-- Name: frontpage_marketing_id_seq; Type: SEQUENCE; Schema: public; Owner: addition
+--
+
+CREATE SEQUENCE frontpage_marketing_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.frontpage_marketing_id_seq OWNER TO addition;
+
+--
+-- Name: frontpage_marketing_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: addition
+--
+
+ALTER SEQUENCE frontpage_marketing_id_seq OWNED BY frontpage_marketing.id;
+
+
+--
+-- Name: frontpage_relationship; Type: TABLE; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE TABLE frontpage_relationship (
+    id integer NOT NULL,
+    relationship_title character varying(40) NOT NULL,
+    relationship_comment character varying(500) NOT NULL,
+    relationship_image character varying(200)
+);
+
+
+ALTER TABLE public.frontpage_relationship OWNER TO addition;
+
+--
+-- Name: frontpage_relationship_id_seq; Type: SEQUENCE; Schema: public; Owner: addition
+--
+
+CREATE SEQUENCE frontpage_relationship_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.frontpage_relationship_id_seq OWNER TO addition;
+
+--
+-- Name: frontpage_relationship_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: addition
+--
+
+ALTER SEQUENCE frontpage_relationship_id_seq OWNED BY frontpage_relationship.id;
+
+
+--
+-- Name: frontpage_services; Type: TABLE; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE TABLE frontpage_services (
+    id integer NOT NULL,
+    service_title character varying(200) NOT NULL,
+    service text NOT NULL
+);
+
+
+ALTER TABLE public.frontpage_services OWNER TO addition;
+
+--
+-- Name: frontpage_services_id_seq; Type: SEQUENCE; Schema: public; Owner: addition
+--
+
+CREATE SEQUENCE frontpage_services_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.frontpage_services_id_seq OWNER TO addition;
+
+--
+-- Name: frontpage_services_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: addition
+--
+
+ALTER SEQUENCE frontpage_services_id_seq OWNED BY frontpage_services.id;
+
+
+--
+-- Name: frontpage_skills; Type: TABLE; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE TABLE frontpage_skills (
+    id integer NOT NULL,
+    skills character varying(200) NOT NULL,
+    skills_order smallint,
+    CONSTRAINT frontpage_skills_skills_order_check CHECK ((skills_order >= 0))
+);
+
+
+ALTER TABLE public.frontpage_skills OWNER TO addition;
+
+--
+-- Name: frontpage_skills_id_seq; Type: SEQUENCE; Schema: public; Owner: addition
+--
+
+CREATE SEQUENCE frontpage_skills_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.frontpage_skills_id_seq OWNER TO addition;
+
+--
+-- Name: frontpage_skills_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: addition
+--
+
+ALTER SEQUENCE frontpage_skills_id_seq OWNED BY frontpage_skills.id;
+
+
+--
+-- Name: frontpage_slider; Type: TABLE; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE TABLE frontpage_slider (
+    id integer NOT NULL,
+    slider_title character varying(20) NOT NULL,
+    slider_text text NOT NULL,
+    slider_order smallint,
+    slider_image character varying(200),
+    CONSTRAINT frontpage_slider_slider_order_check CHECK ((slider_order >= 0))
+);
+
+
+ALTER TABLE public.frontpage_slider OWNER TO addition;
+
+--
+-- Name: frontpage_slider_id_seq; Type: SEQUENCE; Schema: public; Owner: addition
+--
+
+CREATE SEQUENCE frontpage_slider_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.frontpage_slider_id_seq OWNER TO addition;
+
+--
+-- Name: frontpage_slider_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: addition
+--
+
+ALTER SEQUENCE frontpage_slider_id_seq OWNED BY frontpage_slider.id;
+
+
+--
+-- Name: frontpage_title; Type: TABLE; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE TABLE frontpage_title (
+    id integer NOT NULL,
+    title character varying(20) NOT NULL
+);
+
+
+ALTER TABLE public.frontpage_title OWNER TO addition;
+
+--
+-- Name: frontpage_title_id_seq; Type: SEQUENCE; Schema: public; Owner: addition
+--
+
+CREATE SEQUENCE frontpage_title_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.frontpage_title_id_seq OWNER TO addition;
+
+--
+-- Name: frontpage_title_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: addition
+--
+
+ALTER SEQUENCE frontpage_title_id_seq OWNED BY frontpage_title.id;
+
+
+--
+-- Name: south_migrationhistory; Type: TABLE; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE TABLE south_migrationhistory (
+    id integer NOT NULL,
+    app_name character varying(255) NOT NULL,
+    migration character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.south_migrationhistory OWNER TO addition;
+
+--
+-- Name: south_migrationhistory_id_seq; Type: SEQUENCE; Schema: public; Owner: addition
+--
+
+CREATE SEQUENCE south_migrationhistory_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.south_migrationhistory_id_seq OWNER TO addition;
+
+--
+-- Name: south_migrationhistory_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: addition
+--
+
+ALTER SEQUENCE south_migrationhistory_id_seq OWNED BY south_migrationhistory.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY auth_group ALTER COLUMN id SET DEFAULT nextval('auth_group_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY auth_permission ALTER COLUMN id SET DEFAULT nextval('auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY auth_user ALTER COLUMN id SET DEFAULT nextval('auth_user_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY auth_user_groups ALTER COLUMN id SET DEFAULT nextval('auth_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY django_admin_log ALTER COLUMN id SET DEFAULT nextval('django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY django_content_type ALTER COLUMN id SET DEFAULT nextval('django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY frontpage_about ALTER COLUMN id SET DEFAULT nextval('frontpage_about_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY frontpage_brand ALTER COLUMN id SET DEFAULT nextval('frontpage_brand_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY frontpage_feature ALTER COLUMN id SET DEFAULT nextval('frontpage_feature_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY frontpage_marketing ALTER COLUMN id SET DEFAULT nextval('frontpage_marketing_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY frontpage_relationship ALTER COLUMN id SET DEFAULT nextval('frontpage_relationship_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY frontpage_services ALTER COLUMN id SET DEFAULT nextval('frontpage_services_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY frontpage_skills ALTER COLUMN id SET DEFAULT nextval('frontpage_skills_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY frontpage_slider ALTER COLUMN id SET DEFAULT nextval('frontpage_slider_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY frontpage_title ALTER COLUMN id SET DEFAULT nextval('frontpage_title_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY south_migrationhistory ALTER COLUMN id SET DEFAULT nextval('south_migrationhistory_id_seq'::regclass);
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: addition
+--
+
+COPY auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: addition
+--
+
+SELECT pg_catalog.setval('auth_group_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: addition
+--
+
+COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: addition
+--
+
+SELECT pg_catalog.setval('auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: addition
+--
+
+COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add content type	1	add_contenttype
+2	Can change content type	1	change_contenttype
+3	Can delete content type	1	delete_contenttype
+4	Can add permission	3	add_permission
+5	Can change permission	3	change_permission
+6	Can delete permission	3	delete_permission
+7	Can add group	2	add_group
+8	Can change group	2	change_group
+9	Can delete group	2	delete_group
+10	Can add user	4	add_user
+11	Can change user	4	change_user
+12	Can delete user	4	delete_user
+13	Can add log entry	5	add_logentry
+14	Can change log entry	5	change_logentry
+15	Can delete log entry	5	delete_logentry
+16	Can add session	6	add_session
+17	Can change session	6	change_session
+18	Can delete session	6	delete_session
+19	Can add title	7	add_title
+20	Can change title	7	change_title
+21	Can delete title	7	delete_title
+22	Can add slider	14	add_slider
+23	Can change slider	14	change_slider
+24	Can delete slider	14	delete_slider
+25	Can add marketing	8	add_marketing
+26	Can change marketing	8	change_marketing
+27	Can delete marketing	8	delete_marketing
+28	Can add feature	11	add_feature
+29	Can change feature	11	change_feature
+30	Can delete feature	11	delete_feature
+31	Can add relationship	13	add_relationship
+32	Can change relationship	13	change_relationship
+33	Can delete relationship	13	delete_relationship
+34	Can add skills	9	add_skills
+35	Can change skills	9	change_skills
+36	Can delete skills	9	delete_skills
+37	Can add brand	10	add_brand
+38	Can change brand	10	change_brand
+39	Can delete brand	10	delete_brand
+40	Can add about	12	add_about
+41	Can change about	12	change_about
+42	Can delete about	12	delete_about
+43	Can add services	15	add_services
+44	Can change services	15	change_services
+45	Can delete services	15	delete_services
+46	Can add migration history	16	add_migrationhistory
+47	Can change migration history	16	change_migrationhistory
+48	Can delete migration history	16	delete_migrationhistory
+\.
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: addition
+--
+
+SELECT pg_catalog.setval('auth_permission_id_seq', 48, true);
+
+
+--
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: addition
+--
+
+COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+1	pbkdf2_sha256$12000$T43yjb0ghJJZ$17pDD9FHyvRbibXs0uzpP2LCBgHapXNX7AEA6jIc1ZU=	2014-03-29 13:54:31.285382-04	t	ray			delgado.raymond@gmail.com	t	t	2014-03-29 13:54:27.362176-04
+\.
+
+
+--
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: addition
+--
+
+COPY auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: addition
+--
+
+SELECT pg_catalog.setval('auth_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: addition
+--
+
+SELECT pg_catalog.setval('auth_user_id_seq', 1, true);
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: addition
+--
+
+COPY auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: addition
+--
+
+SELECT pg_catalog.setval('auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: addition
+--
+
+COPY django_admin_log (id, action_time, user_id, content_type_id, object_id, object_repr, action_flag, change_message) FROM stdin;
+1	2014-03-29 13:54:56.598351-04	1	12	1	test	1	
+2	2014-03-29 13:56:51.212668-04	1	12	1	Need help deciding?	2	Changed slider_title, slider_text and slider_image.
+3	2014-03-29 13:57:49.659989-04	1	12	2	High End Spaces	1	
+4	2014-03-29 13:58:43.644522-04	1	12	3	On a Budget?	1	
+5	2014-03-29 13:58:54.446136-04	1	12	3	On a Budget?	2	Changed slider_image.
+6	2014-03-29 13:58:54.500977-04	1	12	2	High End Spaces	2	Changed slider_image.
+7	2014-03-29 13:58:54.54582-04	1	12	1	Need help deciding?	2	Changed slider_image.
+8	2014-03-29 14:04:59.239975-04	1	8	1	via Cell Phone!	1	
+9	2014-03-29 14:09:21.374817-04	1	8	2	via Email	1	
+10	2014-03-29 14:14:23.038299-04	1	8	3	Trustworthy	1	
+11	2014-03-29 14:14:53.572875-04	1	11	1	one	1	
+12	2014-03-29 14:15:01.942506-04	1	11	2	two	1	
+13	2014-03-29 14:15:10.41559-04	1	11	3	three	1	
+14	2014-03-29 14:15:39.62548-04	1	8	3	Trustworthy	2	Changed marketing_image.
+15	2014-03-29 14:15:39.669043-04	1	8	1	via Cell Phone!	2	Changed marketing_order and marketing_image.
+16	2014-03-29 14:15:39.713907-04	1	8	2	via Email	2	Changed marketing_order and marketing_image.
+17	2014-03-29 14:15:45.670211-04	1	8	3	Trustworthy	2	Changed marketing_image.
+18	2014-03-29 14:15:45.725283-04	1	8	1	via Cell Phone!	2	Changed marketing_image.
+19	2014-03-29 14:15:45.769979-04	1	8	2	via Email	2	Changed marketing_image.
+20	2014-03-29 14:16:30.629375-04	1	8	3	Trustworthy	2	Changed marketing_image.
+21	2014-03-29 14:16:30.674007-04	1	8	1	via Cell Phone!	2	Changed marketing_image.
+22	2014-03-29 14:16:30.718166-04	1	8	2	via Email	2	Changed marketing_image.
+23	2014-03-29 14:17:05.488763-04	1	8	3	Trustworthy	2	Changed marketing_order and marketing_image.
+24	2014-03-29 14:17:05.532829-04	1	8	1	via Cell Phone!	2	Changed marketing_image.
+25	2014-03-29 14:17:05.577373-04	1	8	2	via Email	2	Changed marketing_order and marketing_image.
+26	2014-03-29 14:17:18.301647-04	1	8	2	via Email	2	Changed marketing_image.
+27	2014-03-29 14:17:18.345231-04	1	8	1	via Cell Phone!	2	Changed marketing_image.
+28	2014-03-29 14:17:18.40023-04	1	8	3	Trustworthy	2	Changed marketing_image.
+29	2014-03-29 14:20:55.986833-04	1	8	2	via Email	2	Changed marketing_image.
+30	2014-03-29 14:20:56.098231-04	1	8	1	via Cell Phone!	2	Changed marketing_image.
+31	2014-03-29 14:20:56.142258-04	1	8	3	Trustworthy	2	Changed marketing_image.
+32	2014-03-29 14:28:16.882064-04	1	11	3	Custom Choices	2	Changed feature_title, feature_subtitle, feature_text and feature_image.
+33	2014-03-29 14:28:35.906066-04	1	11	3	Custom Choices	2	Changed feature_image.
+34	2014-03-29 14:30:57.574514-04	1	8	3	Trustworthy	2	Changed marketing_image.
+35	2014-03-29 14:30:57.630132-04	1	8	2	via Email	2	Changed marketing_text and marketing_image.
+36	2014-03-29 14:30:57.674728-04	1	8	1	via Cell Phone!	2	Changed marketing_image.
+37	2014-03-29 14:31:23.97717-04	1	8	2	via Email	2	Changed marketing_image.
+38	2014-03-29 14:31:24.021411-04	1	8	1	via Cell Phone!	2	Changed marketing_image.
+39	2014-03-29 14:31:24.066034-04	1	8	3	Trustworthy	2	Changed marketing_image.
+40	2014-03-29 14:38:50.171697-04	1	11	3	Custom Choices	2	Changed feature_order and feature_image.
+41	2014-03-29 14:38:50.283677-04	1	11	2	Clean	2	Changed feature_title, feature_subtitle, feature_text and feature_image.
+42	2014-03-29 14:38:50.462157-04	1	11	1	one	2	Changed feature_order.
+43	2014-03-29 14:47:45.431861-04	1	11	3	Custom Choices	2	Changed feature_image.
+44	2014-03-29 14:47:45.476261-04	1	11	2	Clean	2	Changed feature_image.
+45	2014-03-29 14:47:45.521953-04	1	11	1	Family Owned	2	Changed feature_title, feature_subtitle, feature_text and feature_image.
+46	2014-03-29 14:47:55.433915-04	1	11	3	Custom Choices	2	Changed feature_image.
+47	2014-03-29 14:47:55.488392-04	1	11	2	Clean	2	Changed feature_image.
+48	2014-03-29 14:47:55.533177-04	1	11	1	Family Owned	2	Changed feature_text and feature_image.
+49	2014-03-29 14:48:28.314446-04	1	11	3	Custom Choices	2	Changed feature_subtitle and feature_image.
+50	2014-03-29 14:48:28.358609-04	1	11	2	Clean	2	Changed feature_image.
+51	2014-03-29 14:48:28.403067-04	1	11	1	Family Owned	2	Changed feature_image.
+52	2014-03-29 14:53:32.519618-04	1	8	3	Trustworthy	2	Changed marketing_image.
+53	2014-03-29 14:53:32.564516-04	1	8	2	via Email	2	Changed marketing_image.
+54	2014-03-29 14:53:32.875534-04	1	8	1	via Cell Phone!	2	Changed marketing_image.
+55	2014-03-29 14:54:33.404226-04	1	8	3	Trustworthy	2	Changed marketing_image.
+56	2014-03-29 14:54:33.481455-04	1	8	2	via Email	2	Changed marketing_image.
+57	2014-03-29 14:54:33.526253-04	1	8	1	via Cell Phone!	2	Changed marketing_image.
+58	2014-03-29 16:47:17.654948-04	1	8	3	Trustworthy	2	Changed marketing_order and marketing_image.
+59	2014-03-29 16:47:17.702769-04	1	8	2	via Email	2	Changed marketing_order and marketing_image.
+60	2014-03-29 16:47:17.746649-04	1	8	1	via Cell Phone!	2	Changed marketing_order and marketing_image.
+61	2014-03-29 16:48:15.374974-04	1	8	3	via Cell Phone!	2	Changed marketing_title, marketing_text and marketing_image.
+62	2014-03-29 16:48:15.474632-04	1	8	2	via Email	2	Changed marketing_image.
+63	2014-03-29 16:48:15.518804-04	1	8	1	Trustworthy	2	Changed marketing_title, marketing_text and marketing_image.
+64	2014-03-29 16:49:12.90198-04	1	8	3	via Email	2	Changed marketing_title, marketing_text and marketing_image.
+65	2014-03-29 16:49:12.946431-04	1	8	2	Cell Phone!	2	Changed marketing_title, marketing_text and marketing_image.
+66	2014-03-29 16:49:12.991294-04	1	8	1	Trustworthy	2	Changed marketing_image.
+67	2014-03-29 16:54:38.921959-04	1	12	1	You'll be FLOORED	1	
+68	2014-03-29 16:57:01.280183-04	1	10	1	Queen	1	
+69	2014-03-29 16:57:15.667267-04	1	10	2	ShawMark	1	
+70	2014-03-29 16:57:33.837209-04	1	10	3	Camelot	1	
+71	2014-03-29 16:57:51.500901-04	1	10	4	Philadelphia Experts	1	
+72	2014-03-29 16:58:08.352575-04	1	10	5	Karastan	1	
+73	2014-03-29 16:58:21.495488-04	1	10	6	Contract	1	
+74	2014-03-29 16:58:35.127701-04	1	10	7	Aladdin	1	
+75	2014-03-29 16:58:49.973437-04	1	10	8	Milliken	1	
+76	2014-03-29 16:59:07.862915-04	1	10	9	patcraft	1	
+77	2014-03-29 16:59:22.926263-04	1	10	10	Mannington	1	
+78	2014-03-29 16:59:37.685902-04	1	10	11	Fibreworks	1	
+79	2014-03-29 17:00:00.098385-04	1	10	12	Shaw	1	
+80	2014-03-29 19:06:15.000059-04	1	13	1	Monaco, Galpin Ford 	1	
+81	2014-03-29 19:06:35.728741-04	1	13	2	Sly Stallon, Famous Actor	1	
+82	2014-03-29 19:06:49.947849-04	1	13	3	Jose Jimenez 	1	
+83	2014-03-29 19:07:03.309029-04	1	13	4	Roberts Tools, Inc. 	1	
+84	2014-03-29 19:07:16.464034-04	1	13	5	Big Commercial Business Inc 	1	
+85	2014-03-29 19:07:27.88934-04	1	13	6	Juancho 	1	
+86	2014-03-29 19:07:40.477033-04	1	13	7	Willie 	1	
+87	2014-03-29 19:08:00.268487-04	1	13	7	Willie 	2	Changed relationship_comment.
+\.
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: addition
+--
+
+SELECT pg_catalog.setval('django_admin_log_id_seq', 87, true);
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: addition
+--
+
+COPY django_content_type (id, name, app_label, model) FROM stdin;
+1	content type	contenttypes	contenttype
+2	group	auth	group
+3	permission	auth	permission
+4	user	auth	user
+5	log entry	admin	logentry
+6	session	sessions	session
+7	title	frontpage	title
+8	marketing	frontpage	marketing
+9	skills	frontpage	skills
+10	brand	frontpage	brand
+11	feature	frontpage	feature
+12	about	frontpage	about
+13	relationship	frontpage	relationship
+14	slider	frontpage	slider
+15	services	frontpage	services
+16	migration history	south	migrationhistory
+\.
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: addition
+--
+
+SELECT pg_catalog.setval('django_content_type_id_seq', 16, true);
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: addition
+--
+
+COPY django_session (session_key, session_data, expire_date) FROM stdin;
+dszmomtyugvdef4li0vzmonmyf9g7xes	NWJhZTM5NWRiNjdhNjJjMjUzMWYyOTNhYjFiMmUxMTQ4YjhhZWViZTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MSwiX21lc3NhZ2VzIjoiW1tcIl9fanNvbl9tZXNzYWdlXCIsMCwyNSxcIjMgbWFya2V0aW5ncyB3ZXJlIGNoYW5nZWQgc3VjY2Vzc2Z1bGx5LlwiXSxbXCJfX2pzb25fbWVzc2FnZVwiLDAsMjUsXCIzIGZlYXR1cmVzIHdlcmUgY2hhbmdlZCBzdWNjZXNzZnVsbHkuXCJdLFtcIl9fanNvbl9tZXNzYWdlXCIsMCwyNSxcIjMgZmVhdHVyZXMgd2VyZSBjaGFuZ2VkIHN1Y2Nlc3NmdWxseS5cIl0sW1wiX19qc29uX21lc3NhZ2VcIiwwLDI1LFwiMyBmZWF0dXJlcyB3ZXJlIGNoYW5nZWQgc3VjY2Vzc2Z1bGx5LlwiXSxbXCJfX2pzb25fbWVzc2FnZVwiLDAsMjUsXCIzIGZlYXR1cmVzIHdlcmUgY2hhbmdlZCBzdWNjZXNzZnVsbHkuXCJdLFtcIl9fanNvbl9tZXNzYWdlXCIsMCwyNSxcIjMgbWFya2V0aW5ncyB3ZXJlIGNoYW5nZWQgc3VjY2Vzc2Z1bGx5LlwiXSxbXCJfX2pzb25fbWVzc2FnZVwiLDAsMjUsXCIzIG1hcmtldGluZ3Mgd2VyZSBjaGFuZ2VkIHN1Y2Nlc3NmdWxseS5cIl0sW1wiX19qc29uX21lc3NhZ2VcIiwwLDI1LFwiMyBtYXJrZXRpbmdzIHdlcmUgY2hhbmdlZCBzdWNjZXNzZnVsbHkuXCJdLFtcIl9fanNvbl9tZXNzYWdlXCIsMCwyNSxcIjMgbWFya2V0aW5ncyB3ZXJlIGNoYW5nZWQgc3VjY2Vzc2Z1bGx5LlwiXSxbXCJfX2pzb25fbWVzc2FnZVwiLDAsMjUsXCIzIG1hcmtldGluZ3Mgd2VyZSBjaGFuZ2VkIHN1Y2Nlc3NmdWxseS5cIl0sW1wiX19qc29uX21lc3NhZ2VcIiwwLDI1LFwiVGhlIGFib3V0IFxcXCJZb3UnbGwgYmUgRkxPT1JFRFxcXCIgd2FzIGFkZGVkIHN1Y2Nlc3NmdWxseS5cIl0sW1wiX19qc29uX21lc3NhZ2VcIiwwLDI1LFwiVGhlIGJyYW5kIFxcXCJRdWVlblxcXCIgd2FzIGFkZGVkIHN1Y2Nlc3NmdWxseS4gWW91IG1heSBhZGQgYW5vdGhlciBicmFuZCBiZWxvdy5cIl0sW1wiX19qc29uX21lc3NhZ2VcIiwwLDI1LFwiVGhlIGJyYW5kIFxcXCJTaGF3TWFya1xcXCIgd2FzIGFkZGVkIHN1Y2Nlc3NmdWxseS5cIl0sW1wiX19qc29uX21lc3NhZ2VcIiwwLDI1LFwiVGhlIGJyYW5kIFxcXCJDYW1lbG90XFxcIiB3YXMgYWRkZWQgc3VjY2Vzc2Z1bGx5LiBZb3UgbWF5IGFkZCBhbm90aGVyIGJyYW5kIGJlbG93LlwiXSxbXCJfX2pzb25fbWVzc2FnZVwiLDAsMjUsXCJUaGUgYnJhbmQgXFxcIlBoaWxhZGVscGhpYSBFeHBlcnRzXFxcIiB3YXMgYWRkZWQgc3VjY2Vzc2Z1bGx5LiBZb3UgbWF5IGFkZCBhbm90aGVyIGJyYW5kIGJlbG93LlwiXSxbXCJfX2pzb25fbWVzc2FnZVwiLDAsMjUsXCJUaGUgYnJhbmQgXFxcIkthcmFzdGFuXFxcIiB3YXMgYWRkZWQgc3VjY2Vzc2Z1bGx5LiBZb3UgbWF5IGFkZCBhbm90aGVyIGJyYW5kIGJlbG93LlwiXSxbXCJfX2pzb25fbWVzc2FnZVwiLDAsMjUsXCJUaGUgYnJhbmQgXFxcIkNvbnRyYWN0XFxcIiB3YXMgYWRkZWQgc3VjY2Vzc2Z1bGx5LiBZb3UgbWF5IGFkZCBhbm90aGVyIGJyYW5kIGJlbG93LlwiXSxbXCJfX2pzb25fbWVzc2FnZVwiLDAsMjUsXCJUaGUgYnJhbmQgXFxcIkFsYWRkaW5cXFwiIHdhcyBhZGRlZCBzdWNjZXNzZnVsbHkuIFlvdSBtYXkgYWRkIGFub3RoZXIgYnJhbmQgYmVsb3cuXCJdLFtcIl9fanNvbl9tZXNzYWdlXCIsMCwyNSxcIlRoZSBicmFuZCBcXFwiTWlsbGlrZW5cXFwiIHdhcyBhZGRlZCBzdWNjZXNzZnVsbHkuIFlvdSBtYXkgYWRkIGFub3RoZXIgYnJhbmQgYmVsb3cuXCJdLFtcIl9fanNvbl9tZXNzYWdlXCIsMCwyNSxcIlRoZSBicmFuZCBcXFwicGF0Y3JhZnRcXFwiIHdhcyBhZGRlZCBzdWNjZXNzZnVsbHkuIFlvdSBtYXkgYWRkIGFub3RoZXIgYnJhbmQgYmVsb3cuXCJdLFtcIl9fanNvbl9tZXNzYWdlXCIsMCwyNSxcIlRoZSBicmFuZCBcXFwiTWFubmluZ3RvblxcXCIgd2FzIGFkZGVkIHN1Y2Nlc3NmdWxseS4gWW91IG1heSBhZGQgYW5vdGhlciBicmFuZCBiZWxvdy5cIl0sW1wiX19qc29uX21lc3NhZ2VcIiwwLDI1LFwiVGhlIGJyYW5kIFxcXCJGaWJyZXdvcmtzXFxcIiB3YXMgYWRkZWQgc3VjY2Vzc2Z1bGx5LlwiXSxbXCJfX2pzb25fbWVzc2FnZVwiLDAsMjUsXCJUaGUgYnJhbmQgXFxcIlNoYXdcXFwiIHdhcyBhZGRlZCBzdWNjZXNzZnVsbHkuIFlvdSBtYXkgYWRkIGFub3RoZXIgYnJhbmQgYmVsb3cuXCJdLFtcIl9fanNvbl9tZXNzYWdlXCIsMCwyNSxcIlRoZSByZWxhdGlvbnNoaXAgXFxcIk1vbmFjbywgR2FscGluIEZvcmQgXFxcIiB3YXMgYWRkZWQgc3VjY2Vzc2Z1bGx5LiBZb3UgbWF5IGFkZCBhbm90aGVyIHJlbGF0aW9uc2hpcCBiZWxvdy5cIl0sW1wiX19qc29uX21lc3NhZ2VcIiwwLDI1LFwiVGhlIHJlbGF0aW9uc2hpcCBcXFwiU2x5IFN0YWxsb24sIEZhbW91cyBBY3RvclxcXCIgd2FzIGFkZGVkIHN1Y2Nlc3NmdWxseS4gWW91IG1heSBhZGQgYW5vdGhlciByZWxhdGlvbnNoaXAgYmVsb3cuXCJdLFtcIl9fanNvbl9tZXNzYWdlXCIsMCwyNSxcIlRoZSByZWxhdGlvbnNoaXAgXFxcIkpvc2UgSmltZW5leiBcXFwiIHdhcyBhZGRlZCBzdWNjZXNzZnVsbHkuIFlvdSBtYXkgYWRkIGFub3RoZXIgcmVsYXRpb25zaGlwIGJlbG93LlwiXSxbXCJfX2pzb25fbWVzc2FnZVwiLDAsMjUsXCJUaGUgcmVsYXRpb25zaGlwIFxcXCJSb2JlcnRzIFRvb2xzLCBJbmMuIFxcXCIgd2FzIGFkZGVkIHN1Y2Nlc3NmdWxseS4gWW91IG1heSBhZGQgYW5vdGhlciByZWxhdGlvbnNoaXAgYmVsb3cuXCJdLFtcIl9fanNvbl9tZXNzYWdlXCIsMCwyNSxcIlRoZSByZWxhdGlvbnNoaXAgXFxcIkJpZyBDb21tZXJjaWFsIEJ1c2luZXNzIEluYyBcXFwiIHdhcyBhZGRlZCBzdWNjZXNzZnVsbHkuIFlvdSBtYXkgYWRkIGFub3RoZXIgcmVsYXRpb25zaGlwIGJlbG93LlwiXSxbXCJfX2pzb25fbWVzc2FnZVwiLDAsMjUsXCJUaGUgcmVsYXRpb25zaGlwIFxcXCJKdWFuY2hvIFxcXCIgd2FzIGFkZGVkIHN1Y2Nlc3NmdWxseS4gWW91IG1heSBhZGQgYW5vdGhlciByZWxhdGlvbnNoaXAgYmVsb3cuXCJdLFtcIl9fanNvbl9tZXNzYWdlXCIsMCwyNSxcIlRoZSByZWxhdGlvbnNoaXAgXFxcIldpbGxpZSBcXFwiIHdhcyBhZGRlZCBzdWNjZXNzZnVsbHkuXCJdLFtcIl9fanNvbl9tZXNzYWdlXCIsMCwyNSxcIjEgcmVsYXRpb25zaGlwIHdhcyBjaGFuZ2VkIHN1Y2Nlc3NmdWxseS5cIl1dIn0=	2014-04-12 19:08:00.35363-04
+\.
+
+
+--
+-- Data for Name: front_placeholder; Type: TABLE DATA; Schema: public; Owner: addition
+--
+
+COPY front_placeholder (key, value) FROM stdin;
+670752a09fcba6dacefbd76502bd5b1f01c9af15	BOO YAH!
+e28af6e3ddf006da1bddd7fe3354a38bef16362a	TRY ME
+\.
+
+
+--
+-- Data for Name: frontpage_about; Type: TABLE DATA; Schema: public; Owner: addition
+--
+
+COPY frontpage_about (id, about_title, about_story, about_image) FROM stdin;
+1	You'll be FLOORED	<h3>Our <span style="text-decoration: underline;"><strong>skilled team</strong></span> has experience in every floor covering possibility.</h3>\r\n<p>&nbsp;</p>\r\n<h3><strong>Movie Stars</strong>? <span style="text-decoration: underline;">We've</span> floored 'em.</h3>\r\n<p>&nbsp;</p>\r\n<h3><strong>Huge</strong> Office Buildings? <span style="text-decoration: underline;">We've</span> floored 'em.</h3>\r\n<p>&nbsp;</p>\r\n<h3>Car<strong> Showrooms</strong>, Housing <strong>Developments</strong>, Apartment Complexes, Single Family <strong>Residences</strong>? You can bet <span style="text-decoration: underline;">we've floored 'em</span>.</h3>\r\n<p>&nbsp;</p>\r\n<h1>Give us a call, send us a text, email us. <em>We'll floor you too.</em></h1>\r\n<p>&nbsp;</p>\r\n<pre style="color: red;">&nbsp;<strong>Raymond Delgado | 562-500-0078 | rdcarpetflooring@gmail.com</strong></pre>	_versions/frontpage/about/floored_1_large.jpg
+\.
+
+
+--
+-- Name: frontpage_about_id_seq; Type: SEQUENCE SET; Schema: public; Owner: addition
+--
+
+SELECT pg_catalog.setval('frontpage_about_id_seq', 1, true);
+
+
+--
+-- Data for Name: frontpage_brand; Type: TABLE DATA; Schema: public; Owner: addition
+--
+
+COPY frontpage_brand (id, brand_title, brand_image) FROM stdin;
+1	Queen	_versions/frontpage/brand/sf-about-shaw-our-brands-queen-carpet-logo_medium.png
+2	ShawMark	_versions/frontpage/brand/sf-about-shaw-our-brands-collection_logo_shawmark_medium.png
+3	Camelot	_versions/frontpage/brand/camelot_medium.jpg
+4	Philadelphia Experts	_versions/frontpage/brand/b7941e6e81b91eb2705c2c770c2bf5e5.9a1c7036cf7c4a404d3ab6d0269e86b4_medium.png
+5	Karastan	_versions/frontpage/brand/0b84e3919eb28f74484c397396bb3c30.9a1c7036cf7c4a404d3ab6d0269e86b4_medium.jpg
+6	Contract	_versions/frontpage/brand/scg-commercial-flooring-logo_1_medium.jpg
+7	Aladdin	_versions/frontpage/brand/bb5eb9fa9fe8e3974a60e3bc38e59d99.9a1c7036cf7c4a404d3ab6d0269e86b4_medium.jpg
+8	Milliken	_versions/frontpage/brand/milliken-logo_medium.jpg
+9	patcraft	_versions/frontpage/brand/sf-about-shaw-our-brands-ourbrands-patcraft-carpet-logo_medium.png
+10	Mannington	_versions/frontpage/brand/30058c900112162d6936ee854802b506.9a1c7036cf7c4a404d3ab6d0269e86b4_medium.jpg
+11	Fibreworks	_versions/frontpage/brand/340f9b43f042c9f8817b4e161733b347.9a1c7036cf7c4a404d3ab6d0269e86b4_medium.jpg
+12	Shaw	_versions/frontpage/brand/sf-about-shaw-our-brands-collect_logo_shaw_home_medium.png
+\.
+
+
+--
+-- Name: frontpage_brand_id_seq; Type: SEQUENCE SET; Schema: public; Owner: addition
+--
+
+SELECT pg_catalog.setval('frontpage_brand_id_seq', 12, true);
+
+
+--
+-- Data for Name: frontpage_feature; Type: TABLE DATA; Schema: public; Owner: addition
+--
+
+COPY frontpage_feature (id, feature_title, feature_subtitle, feature_text, feature_order, feature_image) FROM stdin;
+3	Custom Choices	Bargain Prices	We've been doing this for decades.  Just tell us what you really want.  We'll do the hard part and find it at the price you need.	1	_versions/frontpage/feature/carpetrolls_big.jpg
+2	Clean	Skilled	Had a bad experience with the big guys?  That's because they don't care about you.  Flooring is our craft and we take pride making you happy.	2	_versions/frontpage/feature/carpetcraft_large.jpg
+1	Family Owned	Family Operated	We have kids to feed, dogs to walk and wives to take out to dinner.  We need you as much as you need a good floor.	3	_versions/frontpage/feature/familybusiness_big.jpg
+\.
+
+
+--
+-- Name: frontpage_feature_id_seq; Type: SEQUENCE SET; Schema: public; Owner: addition
+--
+
+SELECT pg_catalog.setval('frontpage_feature_id_seq', 3, true);
+
+
+--
+-- Data for Name: frontpage_marketing; Type: TABLE DATA; Schema: public; Owner: addition
+--
+
+COPY frontpage_marketing (id, marketing_title, marketing_text, marketing_order, marketing_image) FROM stdin;
+3	via Email	.Send me an email using this simple form.	1	_versions/frontpage/marketing/typingemail2_medium.jpg
+2	Cell Phone!	Send me a text using this simple form	2	_versions/frontpage/marketing/typingtextmessage_medium.jpg
+1	Trustworthy	We are not some corporate machine.  We do business in person and with a smile.	3	_versions/frontpage/marketing/457-79_medium.jpg
+\.
+
+
+--
+-- Name: frontpage_marketing_id_seq; Type: SEQUENCE SET; Schema: public; Owner: addition
+--
+
+SELECT pg_catalog.setval('frontpage_marketing_id_seq', 3, true);
+
+
+--
+-- Data for Name: frontpage_relationship; Type: TABLE DATA; Schema: public; Owner: addition
+--
+
+COPY frontpage_relationship (id, relationship_title, relationship_comment, relationship_image) FROM stdin;
+1	Monaco, Galpin Ford 	These guys are friendly and do high quality work. They are also very reasonable in finding the rug you need at the price you want! 	
+2	Sly Stallon, Famous Actor	Ray Delgado once installed carpet in my house, he's number 1! 	
+3	Jose Jimenez 	When I needed carpet the color of corn, only Addition Interiors could find me that color! I love corn! By the way, I am also an astronaut. 	
+4	Roberts Tools, Inc. 	Only the man known as 'Mr. Roberts' is worthy of carpeting your place of business. Addition Interiors will care for every detail	
+5	Big Commercial Business Inc 	Addition Interiors came through and carpeted our whole showroom, including offices. They were quick, clean and friendly. We recommend them highly. 	
+6	Juancho 	Addition Interiors is a great employer! They took me out for orange chicken and it was delicious!	
+7	Willie 	I may know tile, but Raymond Delgado knows his carpets. If you want an amazing carpet for a great price be sure and call up Addition Interiors 	
+\.
+
+
+--
+-- Name: frontpage_relationship_id_seq; Type: SEQUENCE SET; Schema: public; Owner: addition
+--
+
+SELECT pg_catalog.setval('frontpage_relationship_id_seq', 7, true);
+
+
+--
+-- Data for Name: frontpage_services; Type: TABLE DATA; Schema: public; Owner: addition
+--
+
+COPY frontpage_services (id, service_title, service) FROM stdin;
+\.
+
+
+--
+-- Name: frontpage_services_id_seq; Type: SEQUENCE SET; Schema: public; Owner: addition
+--
+
+SELECT pg_catalog.setval('frontpage_services_id_seq', 1, false);
+
+
+--
+-- Data for Name: frontpage_skills; Type: TABLE DATA; Schema: public; Owner: addition
+--
+
+COPY frontpage_skills (id, skills, skills_order) FROM stdin;
+\.
+
+
+--
+-- Name: frontpage_skills_id_seq; Type: SEQUENCE SET; Schema: public; Owner: addition
+--
+
+SELECT pg_catalog.setval('frontpage_skills_id_seq', 1, false);
+
+
+--
+-- Data for Name: frontpage_slider; Type: TABLE DATA; Schema: public; Owner: addition
+--
+
+COPY frontpage_slider (id, slider_title, slider_text, slider_order, slider_image) FROM stdin;
+3	On a Budget?	Call us today for budget carpets that look custom made!	3	_versions/frontpage/sliders/woolcheckclassics_c_mega.jpg
+2	High End Spaces	Call us today for great deals on specialty carpets!	2	_versions/frontpage/sliders/tufted-loop-pile-synthetic-carpet-tiles-9557-3056505_mega.jpg
+1	Need help deciding?	We'll bring you samples and help you choose.  Free in-person estimates!	1	_versions/frontpage/sliders/carpet-sample_mega.jpg
+\.
+
+
+--
+-- Name: frontpage_slider_id_seq; Type: SEQUENCE SET; Schema: public; Owner: addition
+--
+
+SELECT pg_catalog.setval('frontpage_slider_id_seq', 3, true);
+
+
+--
+-- Data for Name: frontpage_title; Type: TABLE DATA; Schema: public; Owner: addition
+--
+
+COPY frontpage_title (id, title) FROM stdin;
+\.
+
+
+--
+-- Name: frontpage_title_id_seq; Type: SEQUENCE SET; Schema: public; Owner: addition
+--
+
+SELECT pg_catalog.setval('frontpage_title_id_seq', 1, false);
+
+
+--
+-- Data for Name: south_migrationhistory; Type: TABLE DATA; Schema: public; Owner: addition
+--
+
+COPY south_migrationhistory (id, app_name, migration, applied) FROM stdin;
+\.
+
+
+--
+-- Name: south_migrationhistory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: addition
+--
+
+SELECT pg_catalog.setval('south_migrationhistory_id_seq', 1, false);
+
+
+--
+-- Name: auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions_group_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_key UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission_content_type_id_codename_key; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_key UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_user_id_group_id_key; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_group_id_key UNIQUE (user_id, group_id);
+
+
+--
+-- Name: auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_key UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- Name: django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type_app_label_model_key; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_key UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: front_placeholder_pkey; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY front_placeholder
+    ADD CONSTRAINT front_placeholder_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: frontpage_about_pkey; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY frontpage_about
+    ADD CONSTRAINT frontpage_about_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: frontpage_brand_pkey; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY frontpage_brand
+    ADD CONSTRAINT frontpage_brand_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: frontpage_feature_pkey; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY frontpage_feature
+    ADD CONSTRAINT frontpage_feature_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: frontpage_marketing_pkey; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY frontpage_marketing
+    ADD CONSTRAINT frontpage_marketing_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: frontpage_relationship_pkey; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY frontpage_relationship
+    ADD CONSTRAINT frontpage_relationship_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: frontpage_services_pkey; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY frontpage_services
+    ADD CONSTRAINT frontpage_services_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: frontpage_skills_pkey; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY frontpage_skills
+    ADD CONSTRAINT frontpage_skills_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: frontpage_slider_pkey; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY frontpage_slider
+    ADD CONSTRAINT frontpage_slider_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: frontpage_title_pkey; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY frontpage_title
+    ADD CONSTRAINT frontpage_title_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: south_migrationhistory_pkey; Type: CONSTRAINT; Schema: public; Owner: addition; Tablespace: 
+--
+
+ALTER TABLE ONLY south_migrationhistory
+    ADD CONSTRAINT south_migrationhistory_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_name_like; Type: INDEX; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE INDEX auth_group_name_like ON auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_group_id; Type: INDEX; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_group_id ON auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id; Type: INDEX; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_permission_id ON auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id; Type: INDEX; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE INDEX auth_permission_content_type_id ON auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: auth_user_groups_group_id; Type: INDEX; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE INDEX auth_user_groups_group_id ON auth_user_groups USING btree (group_id);
+
+
+--
+-- Name: auth_user_groups_user_id; Type: INDEX; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE INDEX auth_user_groups_user_id ON auth_user_groups USING btree (user_id);
+
+
+--
+-- Name: auth_user_user_permissions_permission_id; Type: INDEX; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE INDEX auth_user_user_permissions_permission_id ON auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id; Type: INDEX; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE INDEX auth_user_user_permissions_user_id ON auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: auth_user_username_like; Type: INDEX; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE INDEX auth_user_username_like ON auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: django_admin_log_content_type_id; Type: INDEX; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_content_type_id ON django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_user_id; Type: INDEX; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_user_id ON django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_expire_date; Type: INDEX; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE INDEX django_session_expire_date ON django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_like; Type: INDEX; Schema: public; Owner: addition; Tablespace: 
+--
+
+CREATE INDEX django_session_session_key_like ON django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_permission_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_permission_id_fkey FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_permission_content_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_fkey FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_fkey FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions_permission_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_permission_id_fkey FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log_content_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_content_type_id_fkey FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: group_id_refs_id_f4b32aac; Type: FK CONSTRAINT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT group_id_refs_id_f4b32aac FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_id_refs_id_40c41112; Type: FK CONSTRAINT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT user_id_refs_id_40c41112 FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_id_refs_id_4dc23c39; Type: FK CONSTRAINT; Schema: public; Owner: addition
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT user_id_refs_id_4dc23c39 FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
